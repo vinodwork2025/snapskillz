@@ -1,0 +1,284 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+
+<Layout>
+  <Header />
+  
+  <main class="pt-20">
+    <!-- Hero Section -->
+    <section class="py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+      <div class="container mx-auto px-4 text-center">
+        <div class="inline-flex items-center bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-200/50 rounded-full px-4 py-2 mb-6">
+          <span class="text-sm font-medium text-gray-700">Simple Pricing</span>
+        </div>
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          Choose Your Learning Path
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          Start free and scale up as you grow. No hidden fees, no long-term contracts.
+        </p>
+      </div>
+    </section>
+
+    <!-- Pricing Toggle -->
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="flex justify-center mb-12">
+          <div class="bg-gray-100 p-1 rounded-full">
+            <button class="px-6 py-2 rounded-full bg-white shadow-sm text-gray-900 font-medium" id="monthly-btn">Monthly</button>
+            <button class="px-6 py-2 rounded-full text-gray-600 font-medium" id="yearly-btn">Yearly <span class="text-green-600 text-sm">(Save 20%)</span></button>
+          </div>
+        </div>
+        
+        <!-- Pricing Cards -->
+        <div class="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <!-- Free Plan -->
+          <div class="bg-white rounded-3xl p-8 border-2 border-gray-200 shadow-lg">
+            <div class="text-center">
+              <h3 class="text-2xl font-bold text-gray-900 mb-2">Starter</h3>
+              <p class="text-gray-600 mb-6">Perfect for getting started</p>
+              <div class="mb-8">
+                <span class="text-5xl font-bold text-gray-900">$0</span>
+                <span class="text-gray-600">/month</span>
+              </div>
+              <button class="w-full bg-gray-900 text-white py-3 px-6 rounded-full font-semibold hover:bg-gray-800 transition-colors mb-8">
+                Get Started Free
+              </button>
+            </div>
+            
+            <div class="space-y-4">
+              <div class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">5 AI quizzes per week</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Basic progress tracking</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Community access</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Limited study resources</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Pro Plan -->
+          <div class="bg-white rounded-3xl p-8 border-2 border-blue-500 shadow-xl relative">
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+              <span class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-medium">Most Popular</span>
+            </div>
+            
+            <div class="text-center">
+              <h3 class="text-2xl font-bold text-gray-900 mb-2">Professional</h3>
+              <p class="text-gray-600 mb-6">For serious learners</p>
+              <div class="mb-8">
+                <span class="text-5xl font-bold text-gray-900 monthly-price">$29</span>
+                <span class="text-5xl font-bold text-gray-900 yearly-price hidden">$23</span>
+                <span class="text-gray-600">/month</span>
+              </div>
+              <button class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-6 rounded-full font-semibold hover:shadow-lg transition-all duration-300 mb-8">
+                Start Pro Trial
+              </button>
+            </div>
+            
+            <div class="space-y-4">
+              <div class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Unlimited AI quizzes</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">5 mock interviews per month</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Advanced analytics</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Full study resource library</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Priority email support</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Certification prep materials</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Enterprise Plan -->
+          <div class="bg-white rounded-3xl p-8 border-2 border-gray-200 shadow-lg">
+            <div class="text-center">
+              <h3 class="text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
+              <p class="text-gray-600 mb-6">For teams and organizations</p>
+              <div class="mb-8">
+                <span class="text-5xl font-bold text-gray-900 monthly-price">$99</span>
+                <span class="text-5xl font-bold text-gray-900 yearly-price hidden">$79</span>
+                <span class="text-gray-600">/month</span>
+              </div>
+              <button class="w-full bg-gray-900 text-white py-3 px-6 rounded-full font-semibold hover:bg-gray-800 transition-colors mb-8">
+                Contact Sales
+              </button>
+            </div>
+            
+            <div class="space-y-4">
+              <div class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Everything in Professional</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Unlimited mock interviews</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Team management dashboard</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Custom learning paths</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Dedicated account manager</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">API access & integrations</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Everything you need to know about our pricing and features.
+          </p>
+        </div>
+        
+        <div class="max-w-3xl mx-auto space-y-6">
+          <div class="bg-white rounded-2xl p-6 shadow-sm">
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">Can I change my plan at any time?</h3>
+            <p class="text-gray-600">Yes! You can upgrade, downgrade, or cancel your plan at any time. Changes take effect at the next billing cycle.</p>
+          </div>
+          
+          <div class="bg-white rounded-2xl p-6 shadow-sm">
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">Is there a free trial for paid plans?</h3>
+            <p class="text-gray-600">Absolutely! All paid plans come with a 14-day free trial. No credit card required to get started.</p>
+          </div>
+          
+          <div class="bg-white rounded-2xl p-6 shadow-sm">
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">What happens if I cancel my subscription?</h3>
+            <p class="text-gray-600">You'll continue to have access to your paid features until the end of your current billing period, then you'll be moved to the free plan.</p>
+          </div>
+          
+          <div class="bg-white rounded-2xl p-6 shadow-sm">
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">Do you offer student discounts?</h3>
+            <p class="text-gray-600">Yes! We offer 50% off the Professional plan for verified students. Contact our support team with your student ID for more information.</p>
+          </div>
+          
+          <div class="bg-white rounded-2xl p-6 shadow-sm">
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">How does the AI personalization work?</h3>
+            <p class="text-gray-600">Our AI learns from your responses, learning speed, and preferences to create personalized quizzes and recommend the most relevant study materials for your goals.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Start Learning?</h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto text-blue-100">
+          Join thousands of learners who have accelerated their careers with SnapSkillz.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button class="bg-white text-gray-900 px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl transition-all duration-300">
+            Start Free Trial
+          </button>
+          <button class="border-2 border-white/30 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-gray-900 transition-all duration-300">
+            Contact Sales
+          </button>
+        </div>
+        <p class="text-sm text-blue-200 mt-6">14-day free trial • No credit card required • Cancel anytime</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Pricing toggle functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      const monthlyBtn = document.getElementById('monthly-btn');
+      const yearlyBtn = document.getElementById('yearly-btn');
+      const monthlyPrices = document.querySelectorAll('.monthly-price');
+      const yearlyPrices = document.querySelectorAll('.yearly-price');
+
+      monthlyBtn?.addEventListener('click', () => {
+        monthlyBtn.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
+        monthlyBtn.classList.remove('text-gray-600');
+        yearlyBtn?.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
+        yearlyBtn?.classList.add('text-gray-600');
+        
+        monthlyPrices.forEach(price => price.classList.remove('hidden'));
+        yearlyPrices.forEach(price => price.classList.add('hidden'));
+      });
+
+      yearlyBtn?.addEventListener('click', () => {
+        yearlyBtn.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
+        yearlyBtn.classList.remove('text-gray-600');
+        monthlyBtn?.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
+        monthlyBtn?.classList.add('text-gray-600');
+        
+        yearlyPrices.forEach(price => price.classList.remove('hidden'));
+        monthlyPrices.forEach(price => price.classList.add('hidden'));
+      });
+    });
+  </script>
+</Layout>

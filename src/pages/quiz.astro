@@ -1,0 +1,506 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+
+<Layout>
+  <Header />
+  
+  <main class="pt-20 min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+    <!-- Header Section -->
+    <section class="py-12 bg-white border-b">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">AI-Powered Quizzes</h1>
+            <p class="text-gray-600">Adaptive learning that evolves with your progress</p>
+          </div>
+          <div class="text-right">
+            <div class="text-sm text-gray-500">Your Progress</div>
+            <div class="text-2xl font-bold text-blue-600">Level 4</div>
+            <div class="text-sm text-gray-500">850 XP</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quiz Categories -->
+    <section class="py-12">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold text-gray-900 mb-4">Choose Your Learning Path</h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Select a category to start your personalized AI quiz experience.
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <!-- Programming Quiz -->
+          <div class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onclick="startQuiz('programming')">
+            <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Programming</h3>
+            <p class="text-gray-600 mb-4">Test your coding knowledge across multiple languages and concepts.</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-blue-600 font-semibold">50+ Questions</span>
+              <span class="text-gray-500">Adaptive Difficulty</span>
+            </div>
+            <div class="mt-4 bg-blue-50 rounded-lg p-3">
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-blue-900 font-medium">Your Progress</span>
+                <span class="text-blue-600">78%</span>
+              </div>
+              <div class="w-full bg-blue-200 rounded-full h-2 mt-2">
+                <div class="bg-blue-600 h-2 rounded-full" style="width: 78%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Science Quiz -->
+          <div class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onclick="startQuiz('datascience')">
+            <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Data Science</h3>
+            <p class="text-gray-600 mb-4">Master statistics, machine learning, and data analysis concepts.</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-purple-600 font-semibold">40+ Questions</span>
+              <span class="text-gray-500">Adaptive Difficulty</span>
+            </div>
+            <div class="mt-4 bg-purple-50 rounded-lg p-3">
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-purple-900 font-medium">Your Progress</span>
+                <span class="text-purple-600">45%</span>
+              </div>
+              <div class="w-full bg-purple-200 rounded-full h-2 mt-2">
+                <div class="bg-purple-600 h-2 rounded-full" style="width: 45%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- System Design Quiz -->
+          <div class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onclick="startQuiz('systemdesign')">
+            <div class="w-16 h-16 bg-gradient-to-r from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">System Design</h3>
+            <p class="text-gray-600 mb-4">Learn to design scalable systems and architecture patterns.</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-teal-600 font-semibold">30+ Questions</span>
+              <span class="text-gray-500">Adaptive Difficulty</span>
+            </div>
+            <div class="mt-4 bg-teal-50 rounded-lg p-3">
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-teal-900 font-medium">Your Progress</span>
+                <span class="text-teal-600">23%</span>
+              </div>
+              <div class="w-full bg-teal-200 rounded-full h-2 mt-2">
+                <div class="bg-teal-600 h-2 rounded-full" style="width: 23%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quiz Interface (Hidden by default) -->
+    <section class="hidden py-12" id="quiz-interface">
+      <div class="container mx-auto px-4 max-w-4xl">
+        <!-- Quiz Header -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900" id="quiz-title">Programming Quiz</h2>
+              <p class="text-gray-600" id="quiz-description">Adaptive difficulty based on your performance</p>
+            </div>
+            <button onclick="exitQuiz()" class="text-gray-500 hover:text-gray-700 p-2">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+          
+          <!-- Progress Bar -->
+          <div class="mt-6">
+            <div class="flex items-center justify-between text-sm text-gray-600 mb-2">
+              <span>Question <span id="current-question">1</span> of <span id="total-questions">10</span></span>
+              <span>Time: <span id="quiz-timer">15:00</span></span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-3">
+              <div class="bg-blue-600 h-3 rounded-full transition-all duration-300" id="progress-bar" style="width: 10%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question Card -->
+        <div class="bg-white rounded-2xl shadow-lg p-8" id="question-card">
+          <!-- Question -->
+          <div class="mb-6">
+            <div class="flex items-center justify-between mb-4">
+              <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-medium" id="question-difficulty">Medium</span>
+              <span class="text-gray-500 text-sm" id="question-category">JavaScript</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-4" id="question-text">
+              What will the following code output?
+            </h3>
+            <div class="bg-gray-100 rounded-lg p-4 font-mono text-sm" id="code-block">
+              <pre><code>console.log(typeof null);</code></pre>
+            </div>
+          </div>
+
+          <!-- Answer Options -->
+          <div class="space-y-3 mb-8" id="answer-options">
+            <div class="border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-blue-50 hover:border-blue-300 transition-all duration-200" onclick="selectAnswer(0)">
+              <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 border-2 border-gray-300 rounded-full flex items-center justify-center">
+                  <div class="w-3 h-3 bg-blue-600 rounded-full hidden"></div>
+                </div>
+                <span class="text-gray-900">"null"</span>
+              </div>
+            </div>
+            <div class="border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-blue-50 hover:border-blue-300 transition-all duration-200" onclick="selectAnswer(1)">
+              <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 border-2 border-gray-300 rounded-full flex items-center justify-center">
+                  <div class="w-3 h-3 bg-blue-600 rounded-full hidden"></div>
+                </div>
+                <span class="text-gray-900">"object"</span>
+              </div>
+            </div>
+            <div class="border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-blue-50 hover:border-blue-300 transition-all duration-200" onclick="selectAnswer(2)">
+              <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 border-2 border-gray-300 rounded-full flex items-center justify-center">
+                  <div class="w-3 h-3 bg-blue-600 rounded-full hidden"></div>
+                </div>
+                <span class="text-gray-900">"undefined"</span>
+              </div>
+            </div>
+            <div class="border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-blue-50 hover:border-blue-300 transition-all duration-200" onclick="selectAnswer(3)">
+              <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 border-2 border-gray-300 rounded-full flex items-center justify-center">
+                  <div class="w-3 h-3 bg-blue-600 rounded-full hidden"></div>
+                </div>
+                <span class="text-gray-900">null</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex items-center justify-between">
+            <button onclick="previousQuestion()" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors" disabled>
+              Previous
+            </button>
+            <button onclick="nextQuestion()" id="next-btn" class="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed" disabled>
+              Next Question
+            </button>
+          </div>
+        </div>
+
+        <!-- AI Feedback Panel (Hidden by default) -->
+        <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-6 mt-6 border border-green-200 hidden" id="feedback-panel">
+          <div class="flex items-start space-x-4">
+            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900 mb-2">Great job! That's correct.</h4>
+              <p class="text-gray-700 mb-3" id="feedback-explanation">
+                The typeof operator returns "object" for null, which is actually a known quirk in JavaScript. This is considered a bug but has been kept for backward compatibility.
+              </p>
+              <div class="text-sm text-gray-600">
+                <strong>AI Insight:</strong> You're showing strong understanding of JavaScript fundamentals. The next question will maintain this difficulty level.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Activity -->
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Your Learning Journey</h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Track your progress and see how you're improving over time.
+          </p>
+        </div>
+        
+        <div class="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <!-- Progress Chart -->
+          <div class="bg-white rounded-2xl shadow-lg p-8 border">
+            <h3 class="text-xl font-bold text-gray-900 mb-6">Weekly Progress</h3>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-gray-600">Accuracy Rate</span>
+                <span class="font-semibold text-green-600">87%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-3">
+                <div class="bg-green-600 h-3 rounded-full" style="width: 87%"></div>
+              </div>
+              
+              <div class="flex items-center justify-between">
+                <span class="text-gray-600">Questions Answered</span>
+                <span class="font-semibold text-blue-600">124</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-3">
+                <div class="bg-blue-600 h-3 rounded-full" style="width: 75%"></div>
+              </div>
+              
+              <div class="flex items-center justify-between">
+                <span class="text-gray-600">Learning Streak</span>
+                <span class="font-semibold text-purple-600">7 days</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Recent Achievements -->
+          <div class="bg-white rounded-2xl shadow-lg p-8 border">
+            <h3 class="text-xl font-bold text-gray-900 mb-6">Recent Achievements</h3>
+            <div class="space-y-4">
+              <div class="flex items-center space-x-4 p-3 bg-yellow-50 rounded-lg">
+                <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900">JavaScript Master</h4>
+                  <p class="text-sm text-gray-600">Completed 50 JavaScript questions</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center space-x-4 p-3 bg-blue-50 rounded-lg">
+                <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900">Speed Learner</h4>
+                  <p class="text-sm text-gray-600">Answered 10 questions in under 5 minutes</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center space-x-4 p-3 bg-green-50 rounded-lg">
+                <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900">Consistency Champion</h4>
+                  <p class="text-sm text-gray-600">7-day learning streak</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    let currentQuestionIndex = 0;
+    let selectedAnswer = null;
+    let quizData = null;
+    let quizTimer = null;
+
+    // Sample quiz data
+    const quizSamples = {
+      programming: {
+        title: "Programming Quiz",
+        description: "Test your coding knowledge",
+        questions: [
+          {
+            text: "What will the following code output?",
+            code: "console.log(typeof null);",
+            difficulty: "Medium",
+            category: "JavaScript",
+            options: ['"null"', '"object"', '"undefined"', 'null'],
+            correct: 1,
+            explanation: "The typeof operator returns 'object' for null, which is a known quirk in JavaScript."
+          },
+          {
+            text: "Which of the following is NOT a valid JavaScript variable name?",
+            difficulty: "Easy",
+            category: "JavaScript",
+            options: ["myVar", "$variable", "_private", "2ndVariable"],
+            correct: 3,
+            explanation: "Variable names cannot start with a number in JavaScript."
+          }
+        ]
+      }
+    };
+
+    function startQuiz(category) {
+      quizData = quizSamples[category] || quizSamples.programming;
+      currentQuestionIndex = 0;
+      selectedAnswer = null;
+      
+      // Hide category selection and show quiz interface
+      document.querySelector('section:nth-child(3)').classList.add('hidden');
+      document.getElementById('quiz-interface').classList.remove('hidden');
+      
+      // Update quiz title and description
+      document.getElementById('quiz-title').textContent = quizData.title;
+      document.getElementById('quiz-description').textContent = quizData.description;
+      document.getElementById('total-questions').textContent = quizData.questions.length;
+      
+      // Start timer
+      startTimer(900); // 15 minutes
+      
+      // Load first question
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      const question = quizData.questions[currentQuestionIndex];
+      
+      // Update question info
+      document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+      document.getElementById('question-difficulty').textContent = question.difficulty;
+      document.getElementById('question-category').textContent = question.category;
+      document.getElementById('question-text').textContent = question.text;
+      
+      // Update code block if exists
+      const codeBlock = document.getElementById('code-block');
+      if (question.code) {
+        codeBlock.innerHTML = `<pre><code>${question.code}</code></pre>`;
+        codeBlock.classList.remove('hidden');
+      } else {
+        codeBlock.classList.add('hidden');
+      }
+      
+      // Update progress bar
+      const progress = ((currentQuestionIndex + 1) / quizData.questions.length) * 100;
+      document.getElementById('progress-bar').style.width = progress + '%';
+      
+      // Clear previous selection
+      selectedAnswer = null;
+      const options = document.querySelectorAll('#answer-options > div');
+      options.forEach((option, index) => {
+        option.className = 'border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-blue-50 hover:border-blue-300 transition-all duration-200';
+        option.onclick = () => selectAnswer(index);
+        option.querySelector('span').textContent = question.options[index];
+        option.querySelector('.w-3').classList.add('hidden');
+      });
+      
+      // Update buttons
+      document.querySelector('button[onclick="previousQuestion()"]').disabled = currentQuestionIndex === 0;
+      document.getElementById('next-btn').disabled = true;
+      document.getElementById('next-btn').textContent = currentQuestionIndex === quizData.questions.length - 1 ? 'Finish Quiz' : 'Next Question';
+      
+      // Hide feedback
+      document.getElementById('feedback-panel').classList.add('hidden');
+    }
+
+    function selectAnswer(index) {
+      selectedAnswer = index;
+      
+      // Update UI to show selection
+      const options = document.querySelectorAll('#answer-options > div');
+      options.forEach((option, i) => {
+        if (i === index) {
+          option.className = 'border-2 border-blue-500 bg-blue-50 rounded-lg p-4 cursor-pointer';
+          option.querySelector('.w-3').classList.remove('hidden');
+        } else {
+          option.className = 'border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-blue-50 hover:border-blue-300 transition-all duration-200';
+          option.querySelector('.w-3').classList.add('hidden');
+        }
+      });
+      
+      // Enable next button
+      document.getElementById('next-btn').disabled = false;
+    }
+
+    function nextQuestion() {
+      if (selectedAnswer === null) return;
+      
+      // Show feedback
+      const question = quizData.questions[currentQuestionIndex];
+      const isCorrect = selectedAnswer === question.correct;
+      const feedbackPanel = document.getElementById('feedback-panel');
+      const feedbackIcon = feedbackPanel.querySelector('.w-10');
+      const feedbackTitle = feedbackPanel.querySelector('h4');
+      const feedbackExplanation = document.getElementById('feedback-explanation');
+      
+      if (isCorrect) {
+        feedbackIcon.className = 'w-10 h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0';
+        feedbackTitle.textContent = 'Great job! That\'s correct.';
+        feedbackPanel.className = 'bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-6 mt-6 border border-green-200';
+      } else {
+        feedbackIcon.className = 'w-10 h-10 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0';
+        feedbackTitle.textContent = 'Not quite right. Here\'s the correct answer:';
+        feedbackPanel.className = 'bg-gradient-to-r from-red-50 to-orange-50 rounded-2xl p-6 mt-6 border border-red-200';
+      }
+      
+      feedbackExplanation.textContent = question.explanation;
+      feedbackPanel.classList.remove('hidden');
+      
+      // Update button to continue
+      const nextBtn = document.getElementById('next-btn');
+      nextBtn.textContent = currentQuestionIndex === quizData.questions.length - 1 ? 'Finish Quiz' : 'Continue';
+      nextBtn.onclick = () => {
+        if (currentQuestionIndex === quizData.questions.length - 1) {
+          finishQuiz();
+        } else {
+          currentQuestionIndex++;
+          nextBtn.onclick = nextQuestion;
+          loadQuestion();
+        }
+      };
+    }
+
+    function previousQuestion() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadQuestion();
+      }
+    }
+
+    function finishQuiz() {
+      alert('Quiz completed! Your results have been saved to your progress.');
+      exitQuiz();
+    }
+
+    function exitQuiz() {
+      // Clear timer
+      if (quizTimer) {
+        clearInterval(quizTimer);
+        quizTimer = null;
+      }
+      
+      // Show category selection and hide quiz interface
+      document.getElementById('quiz-interface').classList.add('hidden');
+      document.querySelector('section:nth-child(3)').classList.remove('hidden');
+    }
+
+    function startTimer(seconds) {
+      if (quizTimer) clearInterval(quizTimer);
+      
+      quizTimer = setInterval(() => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        document.getElementById('quiz-timer').textContent = 
+          `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+        
+        if (seconds <= 0) {
+          clearInterval(quizTimer);
+          alert('Time\'s up! Your quiz has been automatically submitted.');
+          finishQuiz();
+        }
+        
+        seconds--;
+      }, 1000);
+    }
+  </script>
+</Layout>

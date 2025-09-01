@@ -1,0 +1,202 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Header />
+  
+  <main class="pt-20">
+    <!-- Hero Section -->
+    <section class="section section-gradient-blue section-padding">
+      <div class="container-xl container-padding text-center">
+        <div class="badge badge-primary mb-6" data-animate>
+          About SnapSkillz
+        </div>
+        <h1 class="text-display-xl gradient-text-primary mb-6" data-animate>
+          Revolutionizing Learning with AI
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed" data-animate>
+          SnapSkillz is on a mission to make high-quality, personalized learning accessible to everyone through the power of artificial intelligence.
+        </p>
+      </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <h2 class="text-4xl font-bold mb-6 text-gray-900">Our Mission</h2>
+            <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+              We believe that everyone deserves access to personalized, effective learning experiences. Our AI-powered platform adapts to each learner's unique pace, style, and goals, making skill development more efficient and engaging than ever before.
+            </p>
+            <div class="grid grid-cols-2 gap-6">
+              <div class="text-center">
+                <div class="text-3xl font-bold text-blue-600 mb-2">50K+</div>
+                <div class="text-gray-600">Learners Empowered</div>
+              </div>
+              <div class="text-center">
+                <div class="text-3xl font-bold text-purple-600 mb-2">1M+</div>
+                <div class="text-gray-600">Quizzes Completed</div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-12">
+            <div class="space-y-6">
+              <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900">AI-Powered Personalization</h3>
+                  <p class="text-gray-600">Adaptive learning that evolves with you</p>
+                </div>
+              </div>
+              <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900">Proven Results</h3>
+                  <p class="text-gray-600">95% of learners see improvement</p>
+                </div>
+              </div>
+              <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 bg-teal-500 rounded-xl flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900">Expert Community</h3>
+                  <p class="text-gray-600">Learn from industry professionals</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-20 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold mb-6 text-gray-900">Meet Our Team</h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            A passionate group of educators, technologists, and AI experts dedicated to transforming learning.
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div class="bg-white rounded-2xl p-8 text-center shadow-lg">
+            <div class="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6">
+              A
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Alex Rodriguez</h3>
+            <p class="text-purple-600 font-medium mb-4">CEO & Co-Founder</p>
+            <p class="text-gray-600">Former Google AI researcher with 10+ years in machine learning and education technology.</p>
+          </div>
+          
+          <div class="bg-white rounded-2xl p-8 text-center shadow-lg">
+            <div class="w-24 h-24 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6">
+              S
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Sarah Kim</h3>
+            <p class="text-purple-600 font-medium mb-4">CTO & Co-Founder</p>
+            <p class="text-gray-600">Ex-Microsoft engineer specializing in adaptive learning systems and natural language processing.</p>
+          </div>
+          
+          <div class="bg-white rounded-2xl p-8 text-center shadow-lg">
+            <div class="w-24 h-24 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6">
+              M
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Dr. Michael Chen</h3>
+            <p class="text-purple-600 font-medium mb-4">Head of Learning Sciences</p>
+            <p class="text-gray-600">Educational psychologist from Stanford with expertise in personalized learning methodologies.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold mb-6 text-gray-900">Our Values</h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            The principles that guide everything we do at SnapSkillz.
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Innovation</h3>
+            <p class="text-gray-600">Continuously pushing the boundaries of what's possible in learning technology.</p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Empathy</h3>
+            <p class="text-gray-600">Understanding and addressing the real challenges learners face every day.</p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-r from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Integrity</h3>
+            <p class="text-gray-600">Building trust through transparency, honesty, and ethical AI practices.</p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Excellence</h3>
+            <p class="text-gray-600">Striving for the highest quality in everything we create and deliver.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">Join Our Mission</h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto text-blue-100">
+          Be part of the learning revolution. Start your personalized learning journey today.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button class="bg-white text-gray-900 px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl transition-all duration-300">
+            Get Started Free
+          </button>
+          <button class="border-2 border-white/30 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-gray-900 transition-all duration-300">
+            Contact Us
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

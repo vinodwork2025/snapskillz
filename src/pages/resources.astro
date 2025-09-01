@@ -1,0 +1,586 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+
+<Layout>
+  <Header />
+  
+  <main class="pt-20 min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-50">
+    <!-- Header Section -->
+    <section class="py-12 bg-white border-b">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Study Resources</h1>
+            <p class="text-gray-600">Curated learning materials tailored to your skill level</p>
+          </div>
+          <div class="flex items-center space-x-4">
+            <div class="text-center">
+              <div class="text-sm text-gray-500">Resources Completed</div>
+              <div class="text-2xl font-bold text-teal-600">24</div>
+            </div>
+            <div class="text-center">
+              <div class="text-sm text-gray-500">Study Hours</div>
+              <div class="text-2xl font-bold text-teal-600">87</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search and Filters -->
+    <section class="py-8 bg-white border-b">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row gap-6 items-center">
+          <!-- Search Bar -->
+          <div class="flex-1 relative">
+            <input
+              type="text"
+              placeholder="Search for courses, tutorials, articles..."
+              class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+              id="search-input"
+            >
+            <svg class="w-5 h-5 text-gray-400 absolute left-4 top-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          
+          <!-- Filters -->
+          <div class="flex gap-4">
+            <select class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500" id="category-filter">
+              <option value="">All Categories</option>
+              <option value="programming">Programming</option>
+              <option value="design">Design</option>
+              <option value="data">Data Science</option>
+              <option value="business">Business</option>
+            </select>
+            
+            <select class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500" id="level-filter">
+              <option value="">All Levels</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+            
+            <select class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500" id="type-filter">
+              <option value="">All Types</option>
+              <option value="video">Video Course</option>
+              <option value="article">Article</option>
+              <option value="interactive">Interactive</option>
+              <option value="reference">Reference</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Resources -->
+    <section class="py-12">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold text-gray-900 mb-4">Featured for You</h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Personalized recommendations based on your learning progress and goals.
+          </p>
+        </div>
+        
+        <div class="grid lg:grid-cols-3 gap-8 mb-12">
+          <!-- Featured Resource -->
+          <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+            <div class="relative">
+              <div class="aspect-video bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                <svg class="w-16 h-16 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <div class="absolute top-4 left-4">
+                <span class="bg-white/90 text-blue-600 px-3 py-1 rounded-full text-sm font-medium">NEW</span>
+              </div>
+              <div class="absolute bottom-4 right-4">
+                <span class="bg-black/70 text-white px-2 py-1 rounded text-sm">4h 32m</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-3">
+                <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-medium">Video Course</span>
+                <span class="text-yellow-500 text-sm">★ 4.9</span>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2">React Advanced Patterns</h3>
+              <p class="text-gray-600 mb-4">Master advanced React patterns including render props, compound components, and custom hooks.</p>
+              <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                <span>Intermediate</span>
+                <span>12 chapters</span>
+              </div>
+              <div class="bg-blue-50 rounded-lg p-3 mb-4">
+                <div class="flex items-center justify-between text-sm">
+                  <span class="text-blue-900 font-medium">Progress</span>
+                  <span class="text-blue-600">0%</span>
+                </div>
+                <div class="w-full bg-blue-200 rounded-full h-2 mt-2">
+                  <div class="bg-blue-600 h-2 rounded-full" style="width: 0%"></div>
+                </div>
+              </div>
+              <button class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300">
+                Start Learning
+              </button>
+            </div>
+          </div>
+
+          <!-- Featured Resource -->
+          <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+            <div class="relative">
+              <div class="aspect-video bg-gradient-to-br from-teal-500 to-cyan-600 flex items-center justify-center">
+                <svg class="w-16 h-16 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                </svg>
+              </div>
+              <div class="absolute top-4 left-4">
+                <span class="bg-white/90 text-teal-600 px-3 py-1 rounded-full text-sm font-medium">TRENDING</span>
+              </div>
+              <div class="absolute bottom-4 right-4">
+                <span class="bg-black/70 text-white px-2 py-1 rounded text-sm">Interactive</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-3">
+                <span class="bg-teal-100 text-teal-600 px-3 py-1 rounded-full text-sm font-medium">Interactive</span>
+                <span class="text-yellow-500 text-sm">★ 4.8</span>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2">Data Structures Playground</h3>
+              <p class="text-gray-600 mb-4">Interactive visualizations and practice problems for arrays, trees, graphs, and more.</p>
+              <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                <span>All Levels</span>
+                <span>200+ problems</span>
+              </div>
+              <div class="bg-teal-50 rounded-lg p-3 mb-4">
+                <div class="flex items-center justify-between text-sm">
+                  <span class="text-teal-900 font-medium">Progress</span>
+                  <span class="text-teal-600">45%</span>
+                </div>
+                <div class="w-full bg-teal-200 rounded-full h-2 mt-2">
+                  <div class="bg-teal-600 h-2 rounded-full" style="width: 45%"></div>
+                </div>
+              </div>
+              <button class="w-full bg-gradient-to-r from-teal-600 to-cyan-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300">
+                Continue Learning
+              </button>
+            </div>
+          </div>
+
+          <!-- Featured Resource -->
+          <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+            <div class="relative">
+              <div class="aspect-video bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
+                <svg class="w-16 h-16 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+              </div>
+              <div class="absolute top-4 left-4">
+                <span class="bg-white/90 text-purple-600 px-3 py-1 rounded-full text-sm font-medium">UPDATED</span>
+              </div>
+              <div class="absolute bottom-4 right-4">
+                <span class="bg-black/70 text-white px-2 py-1 rounded text-sm">Guide</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-3">
+                <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm font-medium">Reference</span>
+                <span class="text-yellow-500 text-sm">★ 4.9</span>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2">System Design Handbook</h3>
+              <p class="text-gray-600 mb-4">Comprehensive guide to designing scalable systems with real-world examples and case studies.</p>
+              <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                <span>Advanced</span>
+                <span>50 chapters</span>
+              </div>
+              <div class="bg-purple-50 rounded-lg p-3 mb-4">
+                <div class="flex items-center justify-between text-sm">
+                  <span class="text-purple-900 font-medium">Progress</span>
+                  <span class="text-purple-600">12%</span>
+                </div>
+                <div class="w-full bg-purple-200 rounded-full h-2 mt-2">
+                  <div class="bg-purple-600 h-2 rounded-full" style="width: 12%"></div>
+                </div>
+              </div>
+              <button class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300">
+                Continue Reading
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resource Categories -->
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Browse by Category</h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Explore our comprehensive library organized by skills and topics.
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <!-- Category Card -->
+          <div class="group bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer" onclick="filterByCategory('programming')">
+            <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-gray-900 mb-2">Programming</h3>
+            <p class="text-gray-600 text-sm mb-3">Web development, mobile apps, algorithms</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-blue-600 font-medium">120 resources</span>
+              <span class="text-gray-500">All levels</span>
+            </div>
+          </div>
+
+          <!-- Category Card -->
+          <div class="group bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer" onclick="filterByCategory('design')">
+            <div class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-gray-900 mb-2">Design</h3>
+            <p class="text-gray-600 text-sm mb-3">UI/UX, graphic design, prototyping</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-purple-600 font-medium">85 resources</span>
+              <span class="text-gray-500">All levels</span>
+            </div>
+          </div>
+
+          <!-- Category Card -->
+          <div class="group bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer" onclick="filterByCategory('data')">
+            <div class="w-12 h-12 bg-teal-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-gray-900 mb-2">Data Science</h3>
+            <p class="text-gray-600 text-sm mb-3">Machine learning, analytics, statistics</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-teal-600 font-medium">76 resources</span>
+              <span class="text-gray-500">Int - Adv</span>
+            </div>
+          </div>
+
+          <!-- Category Card -->
+          <div class="group bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer" onclick="filterByCategory('business')">
+            <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-gray-900 mb-2">Business</h3>
+            <p class="text-gray-600 text-sm mb-3">Leadership, strategy, entrepreneurship</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-green-600 font-medium">45 resources</span>
+              <span class="text-gray-500">All levels</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resource Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="resource-grid">
+          <!-- Resource Item -->
+          <div class="bg-white rounded-xl border hover:shadow-lg transition-all duration-300 p-6">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <span class="bg-green-100 text-green-600 px-2 py-1 rounded text-xs font-medium">Completed</span>
+            </div>
+            <h3 class="font-bold text-gray-900 mb-2">JavaScript Fundamentals</h3>
+            <p class="text-gray-600 text-sm mb-3">Master the core concepts of JavaScript programming</p>
+            <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
+              <span>Video Course</span>
+              <span>3h 20m</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-green-600 h-2 rounded-full" style="width: 100%"></div>
+            </div>
+          </div>
+
+          <!-- Resource Item -->
+          <div class="bg-white rounded-xl border hover:shadow-lg transition-all duration-300 p-6">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+              </div>
+              <span class="bg-blue-100 text-blue-600 px-2 py-1 rounded text-xs font-medium">In Progress</span>
+            </div>
+            <h3 class="font-bold text-gray-900 mb-2">React Component Patterns</h3>
+            <p class="text-gray-600 text-sm mb-3">Advanced patterns for building reusable components</p>
+            <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
+              <span>Article Series</span>
+              <span>45 min read</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-blue-600 h-2 rounded-full" style="width: 60%"></div>
+            </div>
+          </div>
+
+          <!-- Resource Item -->
+          <div class="bg-white rounded-xl border hover:shadow-lg transition-all duration-300 p-6">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-medium">Not Started</span>
+            </div>
+            <h3 class="font-bold text-gray-900 mb-2">Algorithm Challenges</h3>
+            <p class="text-gray-600 text-sm mb-3">Interactive coding challenges to improve problem-solving</p>
+            <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
+              <span>Interactive</span>
+              <span>100+ problems</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-teal-600 h-2 rounded-full" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <!-- More resource items... -->
+          <div class="bg-white rounded-xl border hover:shadow-lg transition-all duration-300 p-6">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+              </div>
+              <span class="bg-yellow-100 text-yellow-600 px-2 py-1 rounded text-xs font-medium">Bookmarked</span>
+            </div>
+            <h3 class="font-bold text-gray-900 mb-2">API Design Best Practices</h3>
+            <p class="text-gray-600 text-sm mb-3">Guidelines for designing RESTful APIs</p>
+            <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
+              <span>Reference Guide</span>
+              <span>30 min read</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-green-600 h-2 rounded-full" style="width: 25%"></div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl border hover:shadow-lg transition-all duration-300 p-6">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                </svg>
+              </div>
+              <span class="bg-red-100 text-red-600 px-2 py-1 rounded text-xs font-medium">New</span>
+            </div>
+            <h3 class="font-bold text-gray-900 mb-2">Microservices Architecture</h3>
+            <p class="text-gray-600 text-sm mb-3">Building scalable distributed systems</p>
+            <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
+              <span>Video Course</span>
+              <span>6h 15m</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-indigo-600 h-2 rounded-full" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl border hover:shadow-lg transition-all duration-300 p-6">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
+                </svg>
+              </div>
+              <span class="bg-purple-100 text-purple-600 px-2 py-1 rounded text-xs font-medium">Premium</span>
+            </div>
+            <h3 class="font-bold text-gray-900 mb-2">UX Design Masterclass</h3>
+            <p class="text-gray-600 text-sm mb-3">Complete guide to user experience design</p>
+            <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
+              <span>Interactive Course</span>
+              <span>12h 30m</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-pink-600 h-2 rounded-full" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Load More Button -->
+        <div class="text-center mt-12">
+          <button class="bg-gradient-to-r from-teal-600 to-cyan-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300">
+            Load More Resources
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Study Path Recommendations -->
+    <section class="py-12 bg-gradient-to-br from-blue-50 to-purple-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Recommended Learning Paths</h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Structured learning journeys designed to take you from beginner to expert.
+          </p>
+        </div>
+        
+        <div class="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <!-- Learning Path -->
+          <div class="bg-white rounded-2xl shadow-lg p-8">
+            <div class="flex items-center space-x-4 mb-6">
+              <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">Full-Stack Web Developer</h3>
+                <p class="text-gray-600">Frontend + Backend + Database</p>
+              </div>
+            </div>
+            
+            <div class="space-y-3 mb-6">
+              <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <span class="text-gray-700">HTML & CSS Fundamentals</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <span class="text-gray-700">JavaScript Programming</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                  <div class="w-3 h-3 bg-white rounded-full"></div>
+                </div>
+                <span class="text-gray-700">React Development</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 border-2 border-gray-300 rounded-full"></div>
+                <span class="text-gray-500">Node.js & APIs</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 border-2 border-gray-300 rounded-full"></div>
+                <span class="text-gray-500">Database Design</span>
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <div class="flex items-center justify-between text-sm text-gray-600 mb-2">
+                <span>Progress: 40%</span>
+                <span>Est. 120 hours</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-3">
+                <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full" style="width: 40%"></div>
+              </div>
+            </div>
+            
+            <button class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300">
+              Continue Path
+            </button>
+          </div>
+
+          <!-- Learning Path -->
+          <div class="bg-white rounded-2xl shadow-lg p-8">
+            <div class="flex items-center space-x-4 mb-6">
+              <div class="w-12 h-12 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">Data Science Specialist</h3>
+                <p class="text-gray-600">Analytics + ML + Visualization</p>
+              </div>
+            </div>
+            
+            <div class="space-y-3 mb-6">
+              <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <span class="text-gray-700">Python Fundamentals</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 bg-teal-500 rounded-full flex items-center justify-center">
+                  <div class="w-3 h-3 bg-white rounded-full"></div>
+                </div>
+                <span class="text-gray-700">Data Analysis with Pandas</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 border-2 border-gray-300 rounded-full"></div>
+                <span class="text-gray-500">Machine Learning Basics</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 border-2 border-gray-300 rounded-full"></div>
+                <span class="text-gray-500">Data Visualization</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 border-2 border-gray-300 rounded-full"></div>
+                <span class="text-gray-500">Advanced ML Algorithms</span>
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <div class="flex items-center justify-between text-sm text-gray-600 mb-2">
+                <span>Progress: 25%</span>
+                <span>Est. 150 hours</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-3">
+                <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-3 rounded-full" style="width: 25%"></div>
+              </div>
+            </div>
+            
+            <button class="w-full bg-gradient-to-r from-teal-600 to-cyan-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300">
+              Start Path
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Search functionality
+    document.getElementById('search-input')?.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      // In a real app, this would filter the resources
+      console.log('Searching for:', searchTerm);
+    });
+
+    // Filter functions
+    function filterByCategory(category) {
+      document.getElementById('category-filter').value = category;
+      // In a real app, this would filter the resources by category
+      console.log('Filtering by category:', category);
+    }
+
+    // Filter change handlers
+    document.getElementById('category-filter')?.addEventListener('change', (e) => {
+      console.log('Category filter changed:', e.target.value);
+    });
+
+    document.getElementById('level-filter')?.addEventListener('change', (e) => {
+      console.log('Level filter changed:', e.target.value);
+    });
+
+    document.getElementById('type-filter')?.addEventListener('change', (e) => {
+      console.log('Type filter changed:', e.target.value);
+    });
+  </script>
+</Layout>

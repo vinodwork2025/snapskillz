@@ -1,0 +1,152 @@
+---
+// SnapSkillz Footer Component
+import DesignSystem from './DesignSystem.astro';
+---
+
+<DesignSystem />
+
+<footer class="section bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+  <div class="container-xl section-padding">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      
+      <!-- Brand & Description -->
+      <div class="lg:col-span-1" data-animate>
+        <div class="flex items-center space-x-3 mb-6">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+          </div>
+          <span class="text-xl font-bold gradient-text-primary">SnapSkillz</span>
+        </div>
+        
+        <p class="text-gray-300 mb-6 leading-relaxed">
+          Master your skills with AI-powered learning. Get personalized quizzes, mock interviews, and comprehensive study resources tailored to your goals.
+        </p>
+        
+        <!-- Social Links -->
+        <div class="flex space-x-4">
+          <a href="#" class="w-10 h-10 bg-gray-700 hover:bg-blue-600 rounded-xl flex items-center justify-center transition-colors hover-scale" aria-label="Twitter">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-700 hover:bg-blue-600 rounded-xl flex items-center justify-center transition-colors hover-scale" aria-label="LinkedIn">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z"/>
+            </svg>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-700 hover:bg-blue-600 rounded-xl flex items-center justify-center transition-colors hover-scale" aria-label="GitHub">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Quick Links -->
+      <div data-animate>
+        <h3 class="font-semibold text-lg mb-6 text-white">Quick Links</h3>
+        <ul class="space-y-3">
+          <li><a href="/" class="text-gray-300 hover:text-blue-400 transition-colors">Home</a></li>
+          <li><a href="/about" class="text-gray-300 hover:text-blue-400 transition-colors">About Us</a></li>
+          <li><a href="/features" class="text-gray-300 hover:text-blue-400 transition-colors">Features</a></li>
+          <li><a href="/pricing" class="text-gray-300 hover:text-blue-400 transition-colors">Pricing</a></li>
+          <li><a href="/contact" class="text-gray-300 hover:text-blue-400 transition-colors">Contact</a></li>
+          <li><a href="/blog" class="text-gray-300 hover:text-blue-400 transition-colors">Blog</a></li>
+        </ul>
+      </div>
+      
+      <!-- Learning Tools -->
+      <div data-animate>
+        <h3 class="font-semibold text-lg mb-6 text-white">Learning Tools</h3>
+        <ul class="space-y-3">
+          <li><a href="/quiz" class="text-gray-300 hover:text-blue-400 transition-colors">AI Quiz Generator</a></li>
+          <li><a href="/interviews" class="text-gray-300 hover:text-blue-400 transition-colors">Mock Interviews</a></li>
+          <li><a href="/resources" class="text-gray-300 hover:text-blue-400 transition-colors">Study Resources</a></li>
+          <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">Progress Tracking</a></li>
+          <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">Certificates</a></li>
+          <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">Practice Tests</a></li>
+        </ul>
+      </div>
+      
+      <!-- Support & Legal -->
+      <div data-animate>
+        <h3 class="font-semibold text-lg mb-6 text-white">Support</h3>
+        <ul class="space-y-3">
+          <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">Help Center</a></li>
+          <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">Documentation</a></li>
+          <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">Community</a></li>
+          <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">Privacy Policy</a></li>
+          <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">Terms of Service</a></li>
+          <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Newsletter Signup -->
+    <div class="mt-12 pt-8 border-t border-gray-700" data-animate>
+      <div class="max-w-2xl mx-auto text-center">
+        <h3 class="text-xl font-semibold mb-4 text-white">Stay Updated</h3>
+        <p class="text-gray-300 mb-6">Get the latest learning resources and AI-powered study tips delivered to your inbox.</p>
+        <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <input 
+            type="email" 
+            placeholder="Enter your email" 
+            class="form-input bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+            required
+          >
+          <button type="submit" class="btn btn-primary whitespace-nowrap px-8">
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </div>
+    
+    <!-- Bottom Bar -->
+    <div class="mt-12 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center">
+      <div class="text-gray-400 text-sm mb-4 md:mb-0">
+        © 2024 SnapSkillz. All rights reserved.
+      </div>
+      
+      <!-- Built with love -->
+      <div class="flex items-center text-gray-400 text-sm">
+        <span>Built with</span>
+        <svg class="w-4 h-4 mx-1 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+        </svg>
+        <span>using Astro & Tailwind CSS</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Background Elements -->
+  <div class="absolute inset-0 -z-10 overflow-hidden">
+    <div class="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
+  </div>
+</footer>
+
+<style>
+  /* Enhanced hover effects for footer links */
+  footer a:hover {
+    transform: translateX(2px);
+  }
+  
+  /* Newsletter form enhancements */
+  footer form {
+    animation: fadeInUp 0.6s ease-out 0.3s both;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    footer .grid {
+      text-align: center;
+    }
+    
+    footer .flex.space-x-4 {
+      justify-content: center;
+    }
+  }
+</style>
