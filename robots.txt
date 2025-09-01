@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://snapskillz.com/sitemap.xml
