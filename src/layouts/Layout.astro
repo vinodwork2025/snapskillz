@@ -7,7 +7,7 @@ export interface Props {
 	image?: string;
 }
 
-const { title = "SnapSkillz - Master Your Skills with AI-Powered Learning", description = "Master Your Skills with AI-Powered Learning - SnapSkillz offers AI quizzes, mock interviews, and study resources.", image = "/og-image.jpg" } = Astro.props;
+const { title = "SnapSkillz - Master Your Skills with AI-Powered Learning", description = "Master Your Skills with AI-Powered Learning - SnapSkillz offers AI quizzes, mock interviews, and study resources.", image = "/logo.png" } = Astro.props;
 ---
 
 <!doctype html>
@@ -15,7 +15,7 @@ const { title = "SnapSkillz - Master Your Skills with AI-Powered Learning", desc
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/png" href="/logo.png" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
 		<title>{title}</title>
