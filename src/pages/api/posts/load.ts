@@ -3,6 +3,8 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { existsSync } from 'node:fs';
 
+export const prerender = false;
+
 export const GET: APIRoute = async ({ url }) => {
   try {
     const searchParams = new URLSearchParams(url.search);

@@ -3,6 +3,8 @@ import { writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { existsSync } from 'node:fs';
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const postData = await request.json();
