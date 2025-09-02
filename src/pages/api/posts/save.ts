@@ -27,17 +27,28 @@ export const POST: APIRoute = async ({ request }) => {
       .replace(/^-+|-+$/g, '');
 
     // Create markdown content with frontmatter
+    const publishDate = new Date().toISOString().split('T')[0];
     const frontmatter = `---
 title: "${postData.title}"
 description: "${postData.metaDescription || ''}"
 author: "${postData.author}"
-publishDate: ${new Date().toISOString().split('T')[0]}
-category: "${postData.category || 'general'}"
+publishDate: ${publishDate}
+category: "${postData.category || 'technology'}"
 tags: [${postData.tags ? postData.tags.split(',').map((tag: string) => `"${tag.trim()}"`).join(', ') : ''}]
 featured: false
 image: "${postData.featuredImage || ''}"
 readTime: ${Math.ceil(postData.content.replace(/<[^>]*>/g, '').split(/\s+/).length / 200)}
 draft: ${postData.status === 'draft'}
+focus_keywords: "${postData.focusKeywords || ''}"
+canonical_url: "${postData.canonicalURL || ''}"
+robots_meta: "${postData.robotsMeta || 'index,follow'}"
+og_title: "${postData.ogTitle || ''}"
+og_description: "${postData.ogDescription || ''}"
+og_image: "${postData.ogImage || ''}"
+schema_type: "${postData.schemaType || 'Article'}"
+publisher_name: "${postData.publisherName || ''}"
+publisher_logo: "${postData.publisherLogo || ''}"
+visibility: "${postData.visibility || 'public'}"
 ---
 
 `;
