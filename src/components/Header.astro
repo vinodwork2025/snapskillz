@@ -5,7 +5,7 @@ import DesignSystem from './DesignSystem.astro';
 
 <DesignSystem />
 
-<header class="header-light fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out backdrop-blur-xl border-b" style="background: var(--header-bg); border-color: var(--header-border);" id="header">
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out backdrop-blur-xl border-b border-gray-100 bg-white/85" id="header">
   <nav class="container-xl container-padding py-4">
     <div class="flex items-center justify-between">
       <!-- Logo -->
@@ -14,77 +14,42 @@ import DesignSystem from './DesignSystem.astro';
           <img 
             src="/logo.png" 
             alt="SnapSkillz Logo" 
-            class="h-10 w-auto hover-scale transition-transform duration-200"
+            class="h-14 w-auto hover:scale-105 transition-all duration-300 drop-shadow-lg"
           />
         </a>
       </div>
 
       <!-- Desktop Navigation -->
-      <div class="hidden lg:flex items-center space-x-8">
-        <a href="/" class="transition-all duration-200 font-medium hover:scale-105" style="color: var(--nav-link); --tw-text-opacity: 1;" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
+      <div class="hidden lg:flex items-center space-x-10">
+        <a href="/" class="text-gray-700 hover:text-blue-600 font-medium text-lg transition-colors duration-300 relative group">
           Home
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
         </a>
-        <a href="/features" class="transition-all duration-200 font-medium hover:scale-105" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
+        <a href="/features" class="text-gray-700 hover:text-blue-600 font-medium text-lg transition-colors duration-300 relative group">
           Features
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
         </a>
-        <a href="/about" class="transition-all duration-200 font-medium hover:scale-105" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
-          About
-        </a>
-        <a href="/pricing" class="transition-all duration-200 font-medium hover:scale-105" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
-          Pricing
-        </a>
-        <a href="/blog" class="transition-all duration-200 font-medium hover:scale-105" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
+        <a href="/blog" class="text-gray-700 hover:text-blue-600 font-medium text-lg transition-colors duration-300 relative group">
           Blog
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
         </a>
-        <div class="flex items-center space-x-4">
-          <!-- Theme Toggle Button -->
-          <button 
-            id="theme-toggle"
-            class="p-2 rounded-xl backdrop-blur-sm border hover:scale-110 transition-all duration-300 group"
-            style="background: var(--button-theme-bg); border-color: var(--button-theme-border); color: var(--button-theme-text);"
-            aria-label="Toggle theme"
-          >
-            <!-- Sun Icon (Light Mode) -->
-            <svg class="w-5 h-5 sun-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
-            </svg>
-            <!-- Moon Icon (Dark Mode) -->
-            <svg class="w-5 h-5 moon-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-            </svg>
-          </button>
-          
-          <a href="/contact" class="px-4 py-2 border rounded-xl transition-all duration-200" style="color: var(--nav-link); border-color: var(--button-secondary-border);" onmouseover="this.style.color='var(--nav-link-hover)'; this.style.background='var(--button-secondary-hover-bg)'" onmouseout="this.style.color='var(--nav-link)'; this.style.background='transparent'">
-            Contact
-          </a>
-          <a href="/quiz" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/25 hover:scale-105 transition-all duration-200">
+        <a href="/contact" class="text-gray-700 hover:text-blue-600 font-medium text-lg transition-colors duration-300 relative group">
+          Contact
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        
+        <!-- CTA Button -->
+        <div class="ml-6">
+          <a href="/quiz" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold text-lg shadow-xl hover:shadow-blue-500/25 hover:scale-105 transition-all duration-300">
             Start Learning
           </a>
         </div>
       </div>
 
       <!-- Mobile Menu Button -->
-      <div class="lg:hidden flex items-center space-x-3">
-        <!-- Mobile Theme Toggle -->
+      <div class="lg:hidden">
         <button 
-          id="mobile-theme-toggle"
-          class="p-2 rounded-xl backdrop-blur-sm border transition-all duration-300"
-          style="background: var(--button-theme-bg); border-color: var(--button-theme-border); color: var(--button-theme-text);"
-          aria-label="Toggle theme"
-        >
-          <svg class="w-5 h-5 mobile-sun-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
-          </svg>
-          <svg class="w-5 h-5 mobile-moon-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-          </svg>
-        </button>
-        
-        <button 
-          class="p-2 transition-colors duration-200 hover:scale-110"
-          style="color: var(--nav-link);"
-          onmouseover="this.style.color='var(--nav-link-hover)'"
-          onmouseout="this.style.color='var(--nav-link)'"
+          class="p-3 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-xl transition-all duration-300"
           id="mobile-menu-button"
           aria-label="Open mobile menu"
         >
@@ -104,17 +69,13 @@ import DesignSystem from './DesignSystem.astro';
 
   <!-- Mobile Menu -->
   <div 
-    class="mobile-menu-light lg:hidden fixed top-0 right-0 h-full w-80 backdrop-blur-xl shadow-2xl border-l transform translate-x-full transition-transform duration-300 z-50"
-    style="background: var(--mobile-menu-bg); border-color: var(--mobile-menu-border);"
+    class="lg:hidden fixed top-0 right-0 h-full w-80 bg-white backdrop-blur-xl shadow-2xl border-l border-gray-100 transform translate-x-full transition-transform duration-300 z-50"
     id="mobile-menu"
   >
     <div class="p-6">
       <!-- Close Button -->
       <button 
-        class="absolute top-4 right-4 p-2 hover:scale-110 transition-all duration-200"
-        style="color: var(--nav-link);"
-        onmouseover="this.style.color='var(--nav-link-hover)'"
-        onmouseout="this.style.color='var(--nav-link)'"
+        class="absolute top-4 right-4 p-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-xl transition-all duration-300"
         id="mobile-menu-close"
         aria-label="Close mobile menu"
       >
@@ -125,32 +86,23 @@ import DesignSystem from './DesignSystem.astro';
 
       <!-- Mobile Navigation Links -->
       <div class="mt-12 space-y-6">
-        <a href="/" class="block text-lg transition-all duration-200 font-medium hover:translate-x-2" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
+        <a href="/" class="block text-xl font-medium text-gray-700 hover:text-blue-600 transition-colors duration-300 hover:translate-x-2">
           Home
         </a>
-        <a href="/features" class="block text-lg transition-all duration-200 font-medium hover:translate-x-2" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
+        <a href="/features" class="block text-xl font-medium text-gray-700 hover:text-blue-600 transition-colors duration-300 hover:translate-x-2">
           Features
         </a>
-        <a href="/about" class="block text-lg transition-all duration-200 font-medium hover:translate-x-2" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
-          About
-        </a>
-        <a href="/pricing" class="block text-lg transition-all duration-200 font-medium hover:translate-x-2" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
-          Pricing
-        </a>
-        <a href="/blog" class="block text-lg transition-all duration-200 font-medium hover:translate-x-2" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
+        <a href="/blog" class="block text-xl font-medium text-gray-700 hover:text-blue-600 transition-colors duration-300 hover:translate-x-2">
           Blog
         </a>
-        <a href="/contact" class="block text-lg transition-all duration-200 font-medium hover:translate-x-2" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
+        <a href="/contact" class="block text-xl font-medium text-gray-700 hover:text-blue-600 transition-colors duration-300 hover:translate-x-2">
           Contact
         </a>
         
-        <!-- Mobile CTA Buttons -->
-        <div class="pt-6 space-y-4">
-          <a href="/quiz" class="flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-200">
+        <!-- Mobile CTA Button -->
+        <div class="pt-8">
+          <a href="/quiz" class="flex items-center justify-center w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold text-lg shadow-xl hover:shadow-blue-500/25 transition-all duration-300">
             Start Learning
-          </a>
-          <a href="/interviews" class="flex items-center justify-center w-full px-6 py-3 border-2 rounded-xl font-semibold transition-all duration-200" style="border-color: var(--button-secondary-border); color: var(--nav-link);" onmouseover="this.style.background='var(--button-secondary-hover-bg)'; this.style.color='var(--nav-link-hover)'" onmouseout="this.style.background='transparent'; this.style.color='var(--nav-link)'">
-            Mock Interview
           </a>
         </div>
       </div>
@@ -159,75 +111,16 @@ import DesignSystem from './DesignSystem.astro';
 </header>
 
 <script>
-  // Theme Management System
-  function initThemeSystem() {
-    // Get theme from localStorage or default to 'dark'
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    const htmlElement = document.documentElement;
-    
-    // Apply theme
-    function applyTheme(theme) {
-      htmlElement.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-      
-      // Update icon visibility
-      const sunIcons = document.querySelectorAll('.sun-icon, .mobile-sun-icon');
-      const moonIcons = document.querySelectorAll('.moon-icon, .mobile-moon-icon');
-      
-      if (theme === 'dark') {
-        sunIcons.forEach(icon => icon.classList.remove('hidden'));
-        moonIcons.forEach(icon => icon.classList.add('hidden'));
-      } else {
-        sunIcons.forEach(icon => icon.classList.add('hidden'));
-        moonIcons.forEach(icon => icon.classList.remove('hidden'));
-      }
-      
-      // Update body classes for theme switching
-      if (theme === 'light') {
-        document.body.classList.add('light-theme');
-        document.body.classList.remove('dark-theme');
-      } else {
-        document.body.classList.add('dark-theme');
-        document.body.classList.remove('light-theme');
-      }
-    }
-    
-    // Toggle theme function
-    function toggleTheme() {
-      const currentTheme = htmlElement.getAttribute('data-theme') || 'dark';
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      applyTheme(newTheme);
-      
-      // Animate the transition
-      document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
-      setTimeout(() => {
-        document.body.style.transition = '';
-      }, 300);
-    }
-    
-    // Set initial theme
-    applyTheme(savedTheme);
-    
-    // Bind toggle buttons
-    const themeToggle = document.getElementById('theme-toggle');
-    const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
-    
-    themeToggle?.addEventListener('click', toggleTheme);
-    mobileThemeToggle?.addEventListener('click', toggleTheme);
-    
-    return { applyTheme, toggleTheme };
-  }
-
   // Enhanced header effects
   function updateHeaderOnScroll() {
     const header = document.getElementById('header');
     
     if (window.scrollY > 50) {
       header?.classList.add('backdrop-blur-2xl', 'shadow-lg');
-      header.style.background = 'var(--header-bg-scrolled)';
+      header.style.background = 'rgba(255, 255, 255, 0.95)';
     } else {
       header?.classList.remove('backdrop-blur-2xl', 'shadow-lg');
-      header.style.background = 'var(--header-bg)';
+      header.style.background = 'rgba(255, 255, 255, 0.85)';
     }
   }
 
@@ -275,14 +168,10 @@ import DesignSystem from './DesignSystem.astro';
 
   // Initialize everything on page load
   document.addEventListener('DOMContentLoaded', () => {
-    initThemeSystem();
     setupMobileMenu();
     updateHeaderOnScroll();
     window.addEventListener('scroll', updateHeaderOnScroll);
   });
-
-  // Expose theme system globally for other components
-  window.themeSystem = { initThemeSystem };
 </script>
 
 <style>
