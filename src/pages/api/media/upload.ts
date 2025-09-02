@@ -4,8 +4,6 @@ import { join } from 'node:path';
 import { existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 
-export const prerender = false;
-
 export const POST: APIRoute = async ({ request }) => {
   try {
     const formData = await request.formData();
