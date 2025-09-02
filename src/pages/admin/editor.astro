@@ -1,0 +1,539 @@
+---
+// Professional Blog Editor v2.0
+// Advanced content management with SEO, schema, analytics, and multi-format support
+---
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog Editor - SnapSkillz Admin</title>
+    <meta name="description" content="Advanced blog editor with rich text capabilities">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Quill.js Rich Text Editor -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    
+    <!-- Quill ImageResize Module -->
+    <script src="https://unpkg.com/quill-image-resize-module@3.0.0/image-resize.min.js"></script>
+    
+    <!-- Mammoth.js for DOCX import -->
+    <script src="https://cdn.jsdelivr.net/npm/mammoth@1.4.2/mammoth.browser.min.js"></script>
+    
+    <!-- File handling libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+    
+    <!-- Additional libraries for advanced features -->
+    <script src="https://unpkg.com/turndown@7.1.2/dist/turndown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
+    <script src="https://unpkg.com/slugify@1.6.6/slugify.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-gray-50 font-inter">
+    <!-- Auth Check -->
+    <div id="authContainer" class="hidden min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center">
+        <div class="text-center">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-red-500 rounded-full mb-4">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                </svg>
+            </div>
+            <h1 class="text-2xl font-bold text-white mb-2">Access Denied</h1>
+            <p class="text-gray-300 mb-4">Please log in to access the editor</p>
+            <a href="/admin/login" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-semibold hover:scale-105 transition-transform">
+                Sign In
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Editor -->
+    <div id="editor-container" class="hidden">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-4">
+                    <div class="flex items-center">
+                        <a href="/admin/dashboard" class="mr-4 p-2 text-gray-600 hover:text-blue-600 transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                        </a>
+                        <h1 class="text-xl font-bold text-gray-900">Blog Editor</h1>
+                        <span id="saveStatus" class="ml-4 px-3 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded-full">Saved</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button id="previewBtn" class="px-4 py-2 text-gray-600 hover:text-blue-600 border border-gray-300 rounded-lg hover:border-blue-300 transition-colors">
+                            Preview
+                        </button>
+                        <button id="publishBtn" class="px-6 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                            Publish
+                        </button>
+                        <button id="saveBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                            Save Draft
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Advanced Content Management -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Navigation Tabs -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 mb-8">
+                <div class="flex border-b border-gray-200">
+                    <button class="tab-btn active px-6 py-3 font-medium text-blue-600 border-b-2 border-blue-600" data-tab="content">Content</button>
+                    <button class="tab-btn px-6 py-3 font-medium text-gray-500 hover:text-gray-700" data-tab="seo">SEO & Meta</button>
+                    <button class="tab-btn px-6 py-3 font-medium text-gray-500 hover:text-gray-700" data-tab="media">Media</button>
+                    <button class="tab-btn px-6 py-3 font-medium text-gray-500 hover:text-gray-700" data-tab="schema">Schema</button>
+                    <button class="tab-btn px-6 py-3 font-medium text-gray-500 hover:text-gray-700" data-tab="analytics">Analytics</button>
+                    <button class="tab-btn px-6 py-3 font-medium text-gray-500 hover:text-gray-700" data-tab="publish">Publish</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-4 gap-8">
+                <!-- Main Content Area -->
+                <div class="xl:col-span-3 space-y-6">
+                    
+                    <!-- Content Tab -->
+                    <div class="tab-content" id="content-tab">
+                        <!-- Import/Export Bar -->
+                        <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-200 mb-6">
+                            <div class="flex flex-wrap items-center gap-4">
+                                <div class="flex items-center gap-2">
+                                    <label for="importFile" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 cursor-pointer transition-colors">
+                                        📁 Import File
+                                    </label>
+                                    <input type="file" id="importFile" accept=".md,.txt,.docx" class="hidden">
+                                </div>
+                                <div class="flex gap-2">
+                                    <button id="exportMarkdown" class="px-4 py-2 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors">
+                                        ⬇️ Markdown
+                                    </button>
+                                    <button id="exportHTML" class="px-4 py-2 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors">
+                                        ⬇️ HTML
+                                    </button>
+                                    <button id="exportDOCX" class="px-4 py-2 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors">
+                                        ⬇️ DOCX
+                                    </button>
+                                </div>
+                                <div class="ml-auto">
+                                    <button id="autoSave" class="px-3 py-2 text-sm bg-green-100 text-green-700 rounded-lg font-medium">
+                                        🔄 Auto-save: ON
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Post Title & Slug -->
+                        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                                    <input 
+                                        type="text" 
+                                        id="postTitle" 
+                                        placeholder="Enter your compelling blog post title..." 
+                                        class="w-full text-2xl font-bold text-gray-900 placeholder-gray-400 border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    >
+                                    <div class="mt-2 flex items-center justify-between text-sm text-gray-500">
+                                        <span><span id="titleLength">0</span> characters • SEO: <span id="titleSEOScore" class="font-medium">Good</span></span>
+                                        <span class="text-xs">Recommended: 50-60 characters</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">URL Slug</label>
+                                    <div class="flex">
+                                        <span class="px-3 py-2 bg-gray-50 border border-r-0 border-gray-200 rounded-l-lg text-gray-500 text-sm">/blog/</span>
+                                        <input 
+                                            type="text" 
+                                            id="postSlug" 
+                                            placeholder="url-friendly-slug"
+                                            class="flex-1 px-3 py-2 border border-gray-200 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rich Text Editor -->
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+                            <div class="p-4 border-b border-gray-200 flex items-center justify-between">
+                                <h3 class="text-lg font-semibold text-gray-900">Content Editor</h3>
+                                <div class="flex items-center gap-4 text-sm text-gray-500">
+                                    <span>Words: <span id="wordCount" class="font-medium">0</span></span>
+                                    <span>Reading: <span id="readTime" class="font-medium">0</span> min</span>
+                                    <span>Readability: <span id="readabilityScore" class="font-medium">Good</span></span>
+                                </div>
+                            </div>
+                            <div id="editor" style="height: 600px;"></div>
+                        </div>
+
+                        <!-- Content Analytics -->
+                        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">📊 Content Analytics</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <div class="text-2xl font-bold text-blue-600" id="sentenceCount">0</div>
+                                    <div class="text-sm text-gray-600">Sentences</div>
+                                </div>
+                                <div class="bg-green-50 p-4 rounded-lg">
+                                    <div class="text-2xl font-bold text-green-600" id="paragraphCount">0</div>
+                                    <div class="text-sm text-gray-600">Paragraphs</div>
+                                </div>
+                                <div class="bg-purple-50 p-4 rounded-lg">
+                                    <div class="text-2xl font-bold text-purple-600" id="avgWordsPerSentence">0</div>
+                                    <div class="text-sm text-gray-600">Avg Words/Sentence</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SEO Tab -->
+                    <div class="tab-content hidden" id="seo-tab">
+                        <div class="space-y-6">
+                            <!-- Meta Information -->
+                            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">🔍 SEO Meta Tags</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description</label>
+                                        <textarea 
+                                            id="metaDescription" 
+                                            rows="3" 
+                                            placeholder="Write a compelling meta description that will appear in search results..."
+                                            class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        ></textarea>
+                                        <div class="mt-2 flex items-center justify-between text-sm text-gray-500">
+                                            <span><span id="metaDescLength">0</span> characters</span>
+                                            <span class="text-xs">Recommended: 150-160 characters</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Focus Keywords (comma separated)</label>
+                                        <input 
+                                            type="text" 
+                                            id="focusKeywords" 
+                                            placeholder="SEO, blog optimization, content marketing"
+                                            class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        >
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Canonical URL</label>
+                                            <input type="url" id="canonicalURL" placeholder="https://example.com/blog/post" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Robots Meta</label>
+                                            <select id="robotsMeta" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                <option value="index,follow">Index, Follow</option>
+                                                <option value="noindex,follow">No Index, Follow</option>
+                                                <option value="index,nofollow">Index, No Follow</option>
+                                                <option value="noindex,nofollow">No Index, No Follow</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Open Graph -->
+                            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">📱 Open Graph / Social Media</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">OG Title</label>
+                                        <input type="text" id="ogTitle" placeholder="Social media friendly title" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">OG Description</label>
+                                        <textarea id="ogDescription" rows="3" placeholder="Description for social media shares" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">OG Image URL</label>
+                                        <input type="url" id="ogImage" placeholder="https://example.com/image.jpg" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Media Tab -->
+                    <div class="tab-content hidden" id="media-tab">
+                        <div class="space-y-6">
+                            <!-- Featured Image -->
+                            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">🖼️ Featured Image</h3>
+                                <div class="space-y-4">
+                                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors" id="imageDropZone">
+                                        <div class="space-y-2">
+                                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                            <div class="text-gray-600">
+                                                <label for="featuredImageInput" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500">
+                                                    <span>Upload an image</span>
+                                                    <input id="featuredImageInput" type="file" accept="image/*" class="sr-only">
+                                                </label>
+                                                <span class="text-gray-500"> or drag and drop</span>
+                                            </div>
+                                            <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                                        </div>
+                                    </div>
+                                    <div id="featuredImagePreview" class="hidden">
+                                        <img id="featuredImageImg" class="w-full h-64 object-cover rounded-lg border border-gray-200" src="" alt="">
+                                        <div class="mt-4 space-y-2">
+                                            <input type="text" id="imageAlt" placeholder="Alt text for accessibility and SEO" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            <input type="text" id="imageCaption" placeholder="Image caption (optional)" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Gallery -->
+                            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">🖼️ Image Gallery</h3>
+                                <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors" id="galleryDropZone">
+                                    <input id="galleryInput" type="file" accept="image/*" multiple class="sr-only">
+                                    <label for="galleryInput" class="cursor-pointer">
+                                        <div class="text-gray-600">Upload multiple images for gallery</div>
+                                        <div class="text-xs text-gray-500 mt-1">Multiple files supported</div>
+                                    </label>
+                                </div>
+                                <div id="galleryPreview" class="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 hidden">
+                                    <!-- Gallery images will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Schema Tab -->
+                    <div class="tab-content hidden" id="schema-tab">
+                        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">🏗️ Structured Data (Schema.org)</h3>
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Schema Type</label>
+                                    <select id="schemaType" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="Article">Article</option>
+                                        <option value="BlogPosting">Blog Posting</option>
+                                        <option value="NewsArticle">News Article</option>
+                                        <option value="TechArticle">Technical Article</option>
+                                    </select>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Publisher Name</label>
+                                        <input type="text" id="publisherName" placeholder="Your Site Name" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Publisher Logo URL</label>
+                                        <input type="url" id="publisherLogo" placeholder="https://yoursite.com/logo.png" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-md font-medium text-gray-900 mb-2">Generated Schema Preview</h4>
+                                    <textarea id="schemaPreview" rows="10" class="w-full px-3 py-2 border border-gray-200 rounded-lg bg-gray-50 font-mono text-sm" readonly></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analytics Tab -->
+                    <div class="tab-content hidden" id="analytics-tab">
+                        <div class="space-y-6">
+                            <!-- SEO Score -->
+                            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">📈 SEO Analysis</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg">
+                                        <span class="font-medium">Overall SEO Score</span>
+                                        <span class="text-2xl font-bold text-green-600" id="overallSEOScore">85%</span>
+                                    </div>
+                                    <div class="space-y-3" id="seoChecklist">
+                                        <!-- SEO checklist items will be populated here -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Readability Analysis -->
+                            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">📚 Readability Analysis</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="space-y-3">
+                                        <div class="flex justify-between">
+                                            <span>Flesch Reading Ease:</span>
+                                            <span class="font-medium" id="fleschScore">Good</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Grade Level:</span>
+                                            <span class="font-medium" id="gradeLevel">8th Grade</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Passive Voice:</span>
+                                            <span class="font-medium" id="passiveVoice">12%</span>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="flex justify-between">
+                                            <span>Avg Sentence Length:</span>
+                                            <span class="font-medium" id="avgSentenceLength">16 words</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Complex Words:</span>
+                                            <span class="font-medium" id="complexWords">8%</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Readability:</span>
+                                            <span class="font-medium text-green-600" id="readabilityGrade">Excellent</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Publish Tab -->
+                    <div class="tab-content hidden" id="publish-tab">
+                        <div class="space-y-6">
+                            <!-- Publishing Options -->
+                            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">🚀 Publishing Options</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                                        <select id="publishStatus" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            <option value="draft">Draft</option>
+                                            <option value="pending">Pending Review</option>
+                                            <option value="published">Published</option>
+                                            <option value="scheduled">Scheduled</option>
+                                        </select>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Publish Date</label>
+                                            <input type="datetime-local" id="publishDate" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Visibility</label>
+                                            <select id="visibility" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                <option value="public">Public</option>
+                                                <option value="private">Private</option>
+                                                <option value="password">Password Protected</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Final Review -->
+                            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">✅ Pre-Publish Checklist</h3>
+                                <div class="space-y-3" id="publishChecklist">
+                                    <!-- Checklist items will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enhanced Sidebar -->
+                <div class="xl:col-span-1 space-y-6">
+                    <!-- Post Settings -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">📝 Post Details</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Author</label>
+                                <input type="text" id="postAuthor" placeholder="Author name" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Author Bio</label>
+                                <textarea id="authorBio" rows="3" placeholder="Brief author biography" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                                <select id="postCategory" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select category</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="programming">Programming</option>
+                                    <option value="ai">AI & Machine Learning</option>
+                                    <option value="web-development">Web Development</option>
+                                    <option value="mobile">Mobile Development</option>
+                                    <option value="design">Design</option>
+                                    <option value="business">Business</option>
+                                    <option value="tutorials">Tutorials</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
+                                <input type="text" id="postTags" placeholder="tag1, tag2, tag3" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <div class="text-xs text-gray-500 mt-1">Separate tags with commas</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">⚡ Quick Actions</h3>
+                        <div class="space-y-3">
+                            <button id="sidebarPreviewBtn" class="w-full px-4 py-2 text-blue-600 border border-blue-300 rounded-lg hover:bg-blue-50 transition-colors">
+                                👁️ Preview Post
+                            </button>
+                            <button id="sidebarSaveBtn" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                                💾 Save Draft
+                            </button>
+                            <button id="sidebarPublishBtn" class="w-full px-4 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                                🚀 Publish Now
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Post Statistics -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">📊 Statistics</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Word Count:</span>
+                                <span class="font-medium" id="sidebarWordCount">0</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Characters:</span>
+                                <span class="font-medium" id="sidebarCharCount">0</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Reading Time:</span>
+                                <span class="font-medium" id="sidebarReadTime">0 min</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">SEO Score:</span>
+                                <span class="font-medium text-green-600" id="sidebarSEOScore">85%</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Last Saved:</span>
+                                <span class="font-medium text-gray-500" id="lastSaved">Never</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Advanced Blog Editor Script -->
+    <script src="/admin/advanced-editor.js" is:inline></script>
+</body>
+</html>

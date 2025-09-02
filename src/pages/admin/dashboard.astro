@@ -1,0 +1,361 @@
+---
+// Admin Dashboard
+// Main control panel for blog management and content creation
+---
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Dashboard - SnapSkillz</title>
+    <meta name="description" content="SnapSkillz admin dashboard for content management">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'admin': {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-gray-50 font-inter">
+    <!-- Auth Check Container -->
+    <div id="authContainer" class="hidden min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center">
+        <div class="text-center">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-red-500 rounded-full mb-4">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                </svg>
+            </div>
+            <h1 class="text-2xl font-bold text-white mb-2">Access Denied</h1>
+            <p class="text-gray-300 mb-4">Please log in to access the admin dashboard</p>
+            <a href="/admin/login" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-semibold hover:scale-105 transition-transform">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14"></path>
+                </svg>
+                Sign In
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="hidden">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-4">
+                    <div class="flex items-center">
+                        <img src="/logo.png" alt="SnapSkillz" class="w-8 h-8 rounded-lg mr-3">
+                        <h1 class="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center text-sm text-gray-600">
+                            <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Authenticated
+                        </div>
+                        <button id="logoutBtn" class="px-4 py-2 text-gray-600 hover:text-red-600 border border-gray-300 rounded-lg hover:border-red-300 transition-colors">
+                            <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                            </svg>
+                            Sign Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <!-- Total Posts -->
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-blue-100">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Total Posts</p>
+                            <p class="text-2xl font-bold text-gray-900" id="totalPosts">3</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Published Posts -->
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-green-100">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Published</p>
+                            <p class="text-2xl font-bold text-gray-900" id="publishedPosts">3</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Posts -->
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-purple-100">
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Featured</p>
+                            <p class="text-2xl font-bold text-gray-900" id="featuredPosts">2</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Last Updated -->
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-yellow-100">
+                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Last Updated</p>
+                            <p class="text-sm font-bold text-gray-900" id="lastUpdated">Jan 20, 2025</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Create New Post -->
+                <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-6 text-white hover:from-blue-600 hover:to-blue-700 transition-all cursor-pointer transform hover:scale-105" onclick="window.location.href='/admin/editor'">
+                    <div class="flex items-center">
+                        <svg class="w-8 h-8 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                        <div>
+                            <h3 class="text-lg font-semibold">Create New Post</h3>
+                            <p class="text-blue-100 text-sm">Start writing your next blog post</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manage Posts -->
+                <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-6 text-white hover:from-green-600 hover:to-green-700 transition-all cursor-pointer transform hover:scale-105" onclick="window.location.href='/admin/posts'">
+                    <div class="flex items-center">
+                        <svg class="w-8 h-8 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <div>
+                            <h3 class="text-lg font-semibold">Manage Posts</h3>
+                            <p class="text-green-100 text-sm">Edit, delete, or organize content</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Media Library -->
+                <div class="bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl p-6 text-white hover:from-purple-600 hover:to-purple-700 transition-all cursor-pointer transform hover:scale-105" onclick="window.location.href='/admin/media'">
+                    <div class="flex items-center">
+                        <svg class="w-8 h-8 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <div>
+                            <h3 class="text-lg font-semibold">Media Library</h3>
+                            <p class="text-purple-100 text-sm">Upload and manage images</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Posts -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-semibold text-gray-900">Recent Posts</h2>
+                </div>
+                <div class="p-6">
+                    <div id="recentPosts" class="space-y-4">
+                        <!-- Posts will be loaded here -->
+                        <div class="flex items-center justify-center py-8">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                            <span class="ml-2 text-gray-600">Loading posts...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Admin Dashboard Controller
+        class AdminDashboard {
+            constructor() {
+                this.init();
+            }
+
+            init() {
+                this.checkAuthentication();
+                this.bindEvents();
+                this.loadDashboardData();
+            }
+
+            checkAuthentication() {
+                const session = localStorage.getItem('snapskillz_admin_session');
+                const authContainer = document.getElementById('authContainer');
+                const dashboard = document.getElementById('dashboard');
+                
+                if (!session) {
+                    authContainer.classList.remove('hidden');
+                    return false;
+                }
+
+                try {
+                    const sessionData = JSON.parse(session);
+                    
+                    if (!sessionData.authenticated || Date.now() >= sessionData.expires) {
+                        this.clearSession();
+                        authContainer.classList.remove('hidden');
+                        return false;
+                    }
+
+                    // Authentication successful
+                    dashboard.classList.remove('hidden');
+                    return true;
+                } catch (error) {
+                    this.clearSession();
+                    authContainer.classList.remove('hidden');
+                    return false;
+                }
+            }
+
+            bindEvents() {
+                const logoutBtn = document.getElementById('logoutBtn');
+                logoutBtn?.addEventListener('click', () => this.handleLogout());
+            }
+
+            handleLogout() {
+                if (confirm('Are you sure you want to sign out?')) {
+                    this.clearSession();
+                    window.location.href = '/admin/login';
+                }
+            }
+
+            clearSession() {
+                localStorage.removeItem('snapskillz_admin_session');
+                sessionStorage.removeItem('snapskillz_admin_active');
+            }
+
+            async loadDashboardData() {
+                // Simulate loading blog posts data
+                setTimeout(() => {
+                    this.loadRecentPosts();
+                    this.updateStats();
+                }, 1000);
+            }
+
+            loadRecentPosts() {
+                const recentPostsContainer = document.getElementById('recentPosts');
+                
+                // Mock recent posts data
+                const posts = [
+                    {
+                        title: 'Complete Guide to Web Development: From Beginner to Pro',
+                        author: 'Alex Thompson',
+                        date: '2025-01-20',
+                        status: 'published',
+                        featured: true,
+                        readTime: 12
+                    },
+                    {
+                        title: 'Getting Started with AI-Powered Learning in 2025',
+                        author: 'Sarah Johnson', 
+                        date: '2025-01-15',
+                        status: 'published',
+                        featured: true,
+                        readTime: 8
+                    },
+                    {
+                        title: 'How AI is Revolutionizing Technical Interviews: Tips for Success',
+                        author: 'Michael Rodriguez',
+                        date: '2024-12-10',
+                        status: 'published',
+                        featured: false,
+                        readTime: 6
+                    }
+                ];
+
+                recentPostsContainer.innerHTML = posts.map(post => `
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <h3 class="font-semibold text-gray-900 mr-3">${post.title}</h3>
+                                ${post.featured ? '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">Featured</span>' : ''}
+                            </div>
+                            <div class="flex items-center text-sm text-gray-600 space-x-4">
+                                <span>By ${post.author}</span>
+                                <span>•</span>
+                                <span>${post.date}</span>
+                                <span>•</span>
+                                <span>${post.readTime} min read</span>
+                                <span>•</span>
+                                <span class="inline-flex items-center">
+                                    <div class="w-2 h-2 bg-green-400 rounded-full mr-1"></div>
+                                    ${post.status}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button class="p-2 text-gray-400 hover:text-blue-600 transition-colors" title="Edit">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                </svg>
+                            </button>
+                            <button class="p-2 text-gray-400 hover:text-red-600 transition-colors" title="Delete">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            updateStats() {
+                // Update dashboard statistics
+                document.getElementById('totalPosts').textContent = '3';
+                document.getElementById('publishedPosts').textContent = '3';
+                document.getElementById('featuredPosts').textContent = '2';
+                document.getElementById('lastUpdated').textContent = 'Jan 20, 2025';
+            }
+        }
+
+        // Initialize dashboard when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            new AdminDashboard();
+        });
+    </script>
+</body>
+</html>

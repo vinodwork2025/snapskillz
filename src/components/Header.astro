@@ -5,7 +5,7 @@ import DesignSystem from './DesignSystem.astro';
 
 <DesignSystem />
 
-<header class="header-light fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out bg-slate-900/95 backdrop-blur-xl border-b border-white/10" id="header">
+<header class="header-light fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out backdrop-blur-xl border-b" style="background: var(--header-bg); border-color: var(--header-border);" id="header">
   <nav class="container-xl container-padding py-4">
     <div class="flex items-center justify-between">
       <!-- Logo -->
@@ -15,33 +15,34 @@ import DesignSystem from './DesignSystem.astro';
           alt="SnapSkillz Logo" 
           class="w-10 h-10 rounded-xl shadow-colorful hover-scale transition-transform duration-200"
         />
-        <a href="/" class="text-xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent hover-scale transition-transform duration-200">
+        <a href="/" class="text-xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent hover-scale transition-transform duration-200" style="background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
           SnapSkillz
         </a>
       </div>
 
       <!-- Desktop Navigation -->
       <div class="hidden lg:flex items-center space-x-8">
-        <a href="/" class="text-gray-300 hover:text-cyan-400 transition-all duration-200 font-medium hover:scale-105">
+        <a href="/" class="transition-all duration-200 font-medium hover:scale-105" style="color: var(--nav-link); --tw-text-opacity: 1;" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
           Home
         </a>
-        <a href="/features" class="text-gray-300 hover:text-cyan-400 transition-all duration-200 font-medium hover:scale-105">
+        <a href="/features" class="transition-all duration-200 font-medium hover:scale-105" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
           Features
         </a>
-        <a href="/about" class="text-gray-300 hover:text-cyan-400 transition-all duration-200 font-medium hover:scale-105">
+        <a href="/about" class="transition-all duration-200 font-medium hover:scale-105" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
           About
         </a>
-        <a href="/pricing" class="text-gray-300 hover:text-cyan-400 transition-all duration-200 font-medium hover:scale-105">
+        <a href="/pricing" class="transition-all duration-200 font-medium hover:scale-105" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
           Pricing
         </a>
-        <a href="/blog" class="text-gray-300 hover:text-cyan-400 transition-all duration-200 font-medium hover:scale-105">
+        <a href="/blog" class="transition-all duration-200 font-medium hover:scale-105" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
           Blog
         </a>
         <div class="flex items-center space-x-4">
           <!-- Theme Toggle Button -->
           <button 
             id="theme-toggle"
-            class="p-2 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 hover:scale-110 transition-all duration-300 group"
+            class="p-2 rounded-xl backdrop-blur-sm border hover:scale-110 transition-all duration-300 group"
+            style="background: var(--button-theme-bg); border-color: var(--button-theme-border); color: var(--button-theme-text);"
             aria-label="Toggle theme"
           >
             <!-- Sun Icon (Light Mode) -->
@@ -54,7 +55,7 @@ import DesignSystem from './DesignSystem.astro';
             </svg>
           </button>
           
-          <a href="/contact" class="px-4 py-2 text-gray-300 hover:text-white border border-white/20 rounded-xl hover:bg-white/10 transition-all duration-200">
+          <a href="/contact" class="px-4 py-2 border rounded-xl transition-all duration-200" style="color: var(--nav-link); border-color: var(--button-secondary-border);" onmouseover="this.style.color='var(--nav-link-hover)'; this.style.background='var(--button-secondary-hover-bg)'" onmouseout="this.style.color='var(--nav-link)'; this.style.background='transparent'">
             Contact
           </a>
           <a href="/quiz" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/25 hover:scale-105 transition-all duration-200">
@@ -68,7 +69,8 @@ import DesignSystem from './DesignSystem.astro';
         <!-- Mobile Theme Toggle -->
         <button 
           id="mobile-theme-toggle"
-          class="p-2 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300"
+          class="p-2 rounded-xl backdrop-blur-sm border transition-all duration-300"
+          style="background: var(--button-theme-bg); border-color: var(--button-theme-border); color: var(--button-theme-text);"
           aria-label="Toggle theme"
         >
           <svg class="w-5 h-5 mobile-sun-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,7 +82,10 @@ import DesignSystem from './DesignSystem.astro';
         </button>
         
         <button 
-          class="p-2 text-gray-300 hover:text-cyan-400 transition-colors duration-200 hover:scale-110"
+          class="p-2 transition-colors duration-200 hover:scale-110"
+          style="color: var(--nav-link);"
+          onmouseover="this.style.color='var(--nav-link-hover)'"
+          onmouseout="this.style.color='var(--nav-link)'"
           id="mobile-menu-button"
           aria-label="Open mobile menu"
         >
@@ -100,13 +105,17 @@ import DesignSystem from './DesignSystem.astro';
 
   <!-- Mobile Menu -->
   <div 
-    class="mobile-menu-light lg:hidden fixed top-0 right-0 h-full w-80 bg-slate-900/95 backdrop-blur-xl shadow-2xl border-l border-white/10 transform translate-x-full transition-transform duration-300 z-50"
+    class="mobile-menu-light lg:hidden fixed top-0 right-0 h-full w-80 backdrop-blur-xl shadow-2xl border-l transform translate-x-full transition-transform duration-300 z-50"
+    style="background: var(--mobile-menu-bg); border-color: var(--mobile-menu-border);"
     id="mobile-menu"
   >
     <div class="p-6">
       <!-- Close Button -->
       <button 
-        class="absolute top-4 right-4 p-2 text-gray-300 hover:text-white hover:scale-110 transition-all duration-200"
+        class="absolute top-4 right-4 p-2 hover:scale-110 transition-all duration-200"
+        style="color: var(--nav-link);"
+        onmouseover="this.style.color='var(--nav-link-hover)'"
+        onmouseout="this.style.color='var(--nav-link)'"
         id="mobile-menu-close"
         aria-label="Close mobile menu"
       >
@@ -117,22 +126,22 @@ import DesignSystem from './DesignSystem.astro';
 
       <!-- Mobile Navigation Links -->
       <div class="mt-12 space-y-6">
-        <a href="/" class="block text-lg text-gray-300 hover:text-cyan-400 transition-all duration-200 font-medium hover:translate-x-2">
+        <a href="/" class="block text-lg transition-all duration-200 font-medium hover:translate-x-2" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
           Home
         </a>
-        <a href="/features" class="block text-lg text-gray-300 hover:text-cyan-400 transition-all duration-200 font-medium hover:translate-x-2">
+        <a href="/features" class="block text-lg transition-all duration-200 font-medium hover:translate-x-2" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
           Features
         </a>
-        <a href="/about" class="block text-lg text-gray-300 hover:text-cyan-400 transition-all duration-200 font-medium hover:translate-x-2">
+        <a href="/about" class="block text-lg transition-all duration-200 font-medium hover:translate-x-2" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
           About
         </a>
-        <a href="/pricing" class="block text-lg text-gray-300 hover:text-cyan-400 transition-all duration-200 font-medium hover:translate-x-2">
+        <a href="/pricing" class="block text-lg transition-all duration-200 font-medium hover:translate-x-2" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
           Pricing
         </a>
-        <a href="/blog" class="block text-lg text-gray-300 hover:text-cyan-400 transition-all duration-200 font-medium hover:translate-x-2">
+        <a href="/blog" class="block text-lg transition-all duration-200 font-medium hover:translate-x-2" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
           Blog
         </a>
-        <a href="/contact" class="block text-lg text-gray-300 hover:text-cyan-400 transition-all duration-200 font-medium hover:translate-x-2">
+        <a href="/contact" class="block text-lg transition-all duration-200 font-medium hover:translate-x-2" style="color: var(--nav-link);" onmouseover="this.style.color='var(--nav-link-hover)'" onmouseout="this.style.color='var(--nav-link)'">
           Contact
         </a>
         
@@ -141,7 +150,7 @@ import DesignSystem from './DesignSystem.astro';
           <a href="/quiz" class="flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-200">
             Start Learning
           </a>
-          <a href="/interviews" class="flex items-center justify-center w-full px-6 py-3 border-2 border-white/20 text-gray-300 rounded-xl font-semibold hover:bg-white/10 hover:text-white transition-all duration-200">
+          <a href="/interviews" class="flex items-center justify-center w-full px-6 py-3 border-2 rounded-xl font-semibold transition-all duration-200" style="border-color: var(--button-secondary-border); color: var(--nav-link);" onmouseover="this.style.background='var(--button-secondary-hover-bg)'; this.style.color='var(--nav-link-hover)'" onmouseout="this.style.background='transparent'; this.style.color='var(--nav-link)'">
             Mock Interview
           </a>
         </div>
@@ -213,14 +222,13 @@ import DesignSystem from './DesignSystem.astro';
   // Enhanced header effects
   function updateHeaderOnScroll() {
     const header = document.getElementById('header');
-    const nav = header?.querySelector('nav');
     
     if (window.scrollY > 50) {
-      header?.classList.add('backdrop-blur-2xl', 'bg-slate-900/98', 'shadow-lg');
-      header?.classList.remove('bg-slate-900/95');
+      header?.classList.add('backdrop-blur-2xl', 'shadow-lg');
+      header.style.background = 'var(--header-bg-scrolled)';
     } else {
-      header?.classList.remove('backdrop-blur-2xl', 'bg-slate-900/98', 'shadow-lg');
-      header?.classList.add('bg-slate-900/95');
+      header?.classList.remove('backdrop-blur-2xl', 'shadow-lg');
+      header.style.background = 'var(--header-bg)';
     }
   }
 

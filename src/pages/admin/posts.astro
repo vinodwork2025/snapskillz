@@ -1,0 +1,321 @@
+---
+// Manage Posts Page
+---
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manage Posts - SnapSkillz Admin</title>
+    <meta name="description" content="Manage your blog posts">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-gray-50 font-inter">
+    <!-- Auth Check -->
+    <div id="authContainer" class="hidden min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center">
+        <div class="text-center">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-red-500 rounded-full mb-4">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                </svg>
+            </div>
+            <h1 class="text-2xl font-bold text-white mb-2">Access Denied</h1>
+            <p class="text-gray-300 mb-4">Please log in to access the admin panel</p>
+            <a href="/admin/login" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-semibold hover:scale-105 transition-transform">
+                Sign In
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="posts-container" class="hidden">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-4">
+                    <div class="flex items-center">
+                        <a href="/admin/dashboard" class="mr-4 p-2 text-gray-600 hover:text-blue-600 transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                        </a>
+                        <h1 class="text-xl font-bold text-gray-900">Manage Posts</h1>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="/admin/editor" class="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                            ✏️ New Post
+                        </a>
+                        <button id="refreshBtn" class="px-4 py-2 text-gray-600 hover:text-blue-600 border border-gray-300 rounded-lg hover:border-blue-300 transition-colors">
+                            🔄 Refresh
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="flex items-center justify-center py-12">
+            <div class="flex items-center space-x-2 text-gray-500">
+                <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+                <span>Loading posts...</span>
+            </div>
+        </div>
+
+        <!-- Posts List -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                    <div class="text-2xl font-bold text-blue-600" id="totalPosts">-</div>
+                    <div class="text-sm text-gray-600">Total Posts</div>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                    <div class="text-2xl font-bold text-green-600" id="publishedPosts">-</div>
+                    <div class="text-sm text-gray-600">Published</div>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                    <div class="text-2xl font-bold text-yellow-600" id="draftPosts">-</div>
+                    <div class="text-sm text-gray-600">Drafts</div>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                    <div class="text-2xl font-bold text-purple-600" id="featuredPosts">-</div>
+                    <div class="text-sm text-gray-600">Featured</div>
+                </div>
+            </div>
+
+            <!-- Posts Table -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-semibold text-gray-900">All Posts</h2>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full" id="postsTable">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200" id="postsTableBody">
+                            <!-- Posts will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="hidden px-6 py-12 text-center">
+                    <div class="text-gray-400 mb-4">
+                        <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">No posts yet</h3>
+                    <p class="text-gray-500 mb-4">Get started by creating your first blog post.</p>
+                    <a href="/admin/editor" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                        ✏️ Create Your First Post
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class PostsManager {
+            constructor() {
+                this.posts = [];
+                this.init();
+            }
+
+            init() {
+                if (!this.checkAuthentication()) {
+                    return;
+                }
+                this.bindEvents();
+                this.loadPosts();
+            }
+
+            checkAuthentication() {
+                const session = localStorage.getItem('snapskillz_admin_session');
+                const authContainer = document.getElementById('authContainer');
+                const postsContainer = document.getElementById('posts-container');
+                
+                if (!session) {
+                    authContainer?.classList.remove('hidden');
+                    return false;
+                }
+
+                try {
+                    const sessionData = JSON.parse(session);
+                    if (!sessionData.authenticated || Date.now() >= sessionData.expires) {
+                        authContainer?.classList.remove('hidden');
+                        return false;
+                    }
+                    postsContainer?.classList.remove('hidden');
+                    return true;
+                } catch (error) {
+                    authContainer?.classList.remove('hidden');
+                    return false;
+                }
+            }
+
+            bindEvents() {
+                const refreshBtn = document.getElementById('refreshBtn');
+                if (refreshBtn) {
+                    refreshBtn.addEventListener('click', () => {
+                        this.loadPosts();
+                    });
+                }
+            }
+
+            async loadPosts() {
+                const loadingState = document.getElementById('loadingState');
+                const postsTableBody = document.getElementById('postsTableBody');
+                const emptyState = document.getElementById('emptyState');
+                
+                if (loadingState) loadingState.classList.remove('hidden');
+                if (postsTableBody) postsTableBody.innerHTML = '';
+                if (emptyState) emptyState.classList.add('hidden');
+
+                try {
+                    const response = await fetch('/api/posts/list');
+                    const data = await response.json();
+
+                    if (data.success) {
+                        this.posts = data.posts;
+                        this.updateStats();
+                        this.renderPosts();
+                    } else {
+                        this.showNotification('Failed to load posts: ' + data.error, 'error');
+                    }
+                } catch (error) {
+                    console.error('Error loading posts:', error);
+                    this.showNotification('Failed to load posts', 'error');
+                } finally {
+                    if (loadingState) loadingState.classList.add('hidden');
+                }
+            }
+
+            updateStats() {
+                const total = this.posts.length;
+                const published = this.posts.filter(post => !post.draft).length;
+                const drafts = this.posts.filter(post => post.draft).length;
+                const featured = this.posts.filter(post => post.featured).length;
+
+                document.getElementById('totalPosts').textContent = total;
+                document.getElementById('publishedPosts').textContent = published;
+                document.getElementById('draftPosts').textContent = drafts;
+                document.getElementById('featuredPosts').textContent = featured;
+            }
+
+            renderPosts() {
+                const tbody = document.getElementById('postsTableBody');
+                const emptyState = document.getElementById('emptyState');
+
+                if (this.posts.length === 0) {
+                    if (emptyState) emptyState.classList.remove('hidden');
+                    return;
+                }
+
+                if (tbody) {
+                    tbody.innerHTML = this.posts.map(post => `
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    ${post.image ? `<img class="w-10 h-10 rounded-lg object-cover mr-3" src="${post.image}" alt="">` : '<div class="w-10 h-10 rounded-lg bg-gray-200 mr-3 flex items-center justify-center"><svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div>'}
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">${post.title}</div>
+                                        <div class="text-sm text-gray-500">${post.preview}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${post.author}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${post.draft ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}">
+                                    ${post.draft ? 'Draft' : 'Published'}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${post.category}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${new Date(post.lastModified).toLocaleDateString()}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <a href="/blog/${post.slug}" target="_blank" class="text-blue-600 hover:text-blue-900 mr-3">View</a>
+                                <button onclick="postsManager.editPost('${post.slug}')" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>
+                                <button onclick="postsManager.deletePost('${post.slug}')" class="text-red-600 hover:text-red-900">Delete</button>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+            }
+
+            editPost(slug) {
+                // Redirect to editor with the post slug
+                window.location.href = `/admin/editor?edit=${slug}`;
+            }
+
+            async deletePost(slug) {
+                if (!confirm(`Are you sure you want to delete the post "${slug}"? This action cannot be undone.`)) {
+                    return;
+                }
+                
+                this.showNotification('Delete functionality coming soon...', 'info');
+                // TODO: Implement delete functionality
+            }
+
+            showNotification(message, type) {
+                const notification = document.createElement('div');
+                const bgClass = type === 'success' ? 'bg-green-600' : 
+                               type === 'error' ? 'bg-red-600' : 
+                               type === 'info' ? 'bg-blue-600' : 'bg-gray-600';
+                
+                notification.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-lg shadow-lg text-white ${bgClass} transform transition-transform duration-300 translate-x-full`;
+                
+                notification.innerHTML = `
+                    <div class="flex items-center">
+                        <span>${message}</span>
+                        <button class="ml-4 hover:text-gray-200" onclick="this.parentElement.parentElement.remove()">×</button>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // Animate in
+                setTimeout(() => {
+                    notification.classList.remove('translate-x-full');
+                }, 100);
+                
+                // Auto remove
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.classList.add('translate-x-full');
+                        setTimeout(() => notification.remove(), 300);
+                    }
+                }, 5000);
+            }
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.postsManager = new PostsManager();
+        });
+    </script>
+</body>
+</html>
