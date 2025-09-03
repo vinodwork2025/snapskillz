@@ -1,0 +1,20 @@
+name = "snapskillz"
+compatibility_date = "2024-09-02"
+compatibility_flags = ["nodejs_compat"]
+
+# Cloudflare Pages configuration
+pages_build_output_dir = "dist"
+
+[build]
+command = "npm run build"
+
+[env.production]
+name = "snapskillz"
+
+[env.development]
+name = "snapskillz-dev"
+
+# Environment variables (set these in Cloudflare dashboard)
+[vars]
+# Add any environment variables your app needs here
+# EXAMPLE_VAR = "example_value"
