@@ -31,16 +31,18 @@ const {
 } = Astro.props;
 ---
 
-<section class="hero-section relative min-h-screen flex items-center overflow-hidden" style="background: var(--hero-bg);">
-  <!-- Subtle Professional Background -->
+<section class="hero-section relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900">
+  <!-- Enhanced Professional Background -->
   <div class="absolute inset-0">
-    <!-- Gentle Gradient Background -->
-    <div class="absolute inset-0 opacity-40" style="filter: var(--hero-bg-filter, brightness(1));">
-      <div class="absolute top-1/4 -left-32 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl animate-float-slow"></div>
-      <div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl animate-float-slow animation-delay-4000"></div>
+    <!-- Advanced Gradient Blobs -->
+    <div class="absolute inset-0">
+      <div class="absolute top-10 left-10 w-96 h-96 bg-gradient-to-r from-blue-500/30 to-cyan-500/30 rounded-full blur-3xl animate-float-slow"></div>
+      <div class="absolute bottom-20 right-20 w-[500px] h-[500px] bg-gradient-to-r from-purple-500/25 to-pink-500/25 rounded-full blur-3xl animate-float-delayed"></div>
+      <div class="absolute top-1/2 left-1/3 w-80 h-80 bg-gradient-to-r from-teal-500/20 to-emerald-500/20 rounded-full blur-3xl animate-float-slow"></div>
+      <div class="absolute bottom-10 left-10 w-64 h-64 bg-gradient-to-r from-indigo-500/25 to-blue-500/25 rounded-full blur-3xl animate-float-reverse"></div>
     </div>
 
-    <!-- Floating Tile Graphics (Retained) -->
+    <!-- Enhanced Floating Particles -->
     <div class="absolute inset-0">
       <div class="tile-particle tile-1"></div>
       <div class="tile-particle tile-2"></div>
@@ -50,12 +52,12 @@ const {
       <div class="tile-particle tile-6"></div>
       <div class="tile-particle tile-7"></div>
       <div class="tile-particle tile-8"></div>
+      <div class="tile-particle tile-9"></div>
+      <div class="tile-particle tile-10"></div>
     </div>
 
-    <!-- Subtle Grid Pattern -->
-    <div class="absolute inset-0 opacity-5">
-      <div style="background-image: linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px); background-size: 50px 50px;"></div>
-    </div>
+    <!-- Advanced Grid Pattern -->
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Ccircle cx="50" cy="50" r="1"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-40"></div>
   </div>
 
   <!-- Content Container -->
@@ -64,50 +66,53 @@ const {
       
       <!-- Left Content -->
       <div class="text-center lg:text-left space-y-10">
-        <!-- Professional Badge -->
-        <div class="inline-flex items-center px-4 py-2 rounded-full backdrop-blur-sm border font-medium text-sm transition-all duration-300" style="background: var(--badge-bg); border-color: var(--badge-border); color: var(--badge-text);">
-          <div class="w-2 h-2 bg-blue-500 rounded-full mr-3 animate-pulse"></div>
-          {subtitle}
+        <!-- Enhanced Professional Badge -->
+        <div class="inline-flex items-center px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 font-semibold text-sm transition-all duration-300 text-white/90 shadow-xl">
+          <div class="w-2 h-2 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full mr-3 animate-pulse"></div>
+          <span class="tracking-wide uppercase">{subtitle}</span>
         </div>
 
-        <!-- Clean Main Title -->
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
-          <span class="block mb-2 animate-fade-in-up" style="color: var(--text-primary);">Master Skills with</span>
-          <span class="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-fade-in-up animation-delay-200">
+        <!-- Enhanced Main Title -->
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black leading-[0.9] tracking-tight">
+          <span class="block mb-4 animate-fade-in-up bg-gradient-to-r from-white via-cyan-200 to-blue-200 bg-clip-text text-transparent drop-shadow-2xl">
+            Master Skills with
+          </span>
+          <span class="block bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent animate-fade-in-up animation-delay-200">
             AI-Powered Learning
           </span>
         </h1>
 
-        <!-- Professional Description -->
-        <p class="text-lg sm:text-xl max-w-2xl mx-auto lg:mx-0 leading-relaxed animate-fade-in-up animation-delay-400" style="color: var(--text-secondary);">
+        <!-- Enhanced Description -->
+        <p class="text-xl sm:text-2xl max-w-2xl mx-auto lg:mx-0 leading-relaxed animate-fade-in-up animation-delay-400 text-white/80 font-light">
           {description}
         </p>
 
-        <!-- Clean Stats Row -->
-        <div class="flex flex-wrap justify-center lg:justify-start gap-8 lg:gap-12 animate-fade-in-up animation-delay-600">
-          <div class="text-center">
-            <div class="text-2xl sm:text-3xl font-bold mb-1 text-blue-600">10,000+</div>
-            <div class="text-sm font-medium" style="color: var(--text-muted);">Students Served</div>
+        <!-- Enhanced Stats with Glass Morphism -->
+        <div class="flex flex-wrap justify-center lg:justify-start gap-6 animate-fade-in-up animation-delay-600">
+          <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-center shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
+            <div class="text-3xl font-black mb-2 text-cyan-300">50K+</div>
+            <div class="text-sm font-medium text-white/70">Students Served</div>
           </div>
-          <div class="text-center">
-            <div class="text-2xl sm:text-3xl font-bold mb-1 text-purple-600">50+</div>
-            <div class="text-sm font-medium" style="color: var(--text-muted);">Expert Resources</div>
+          <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-center shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
+            <div class="text-3xl font-black mb-2 text-purple-300">100+</div>
+            <div class="text-sm font-medium text-white/70">Expert Resources</div>
           </div>
-          <div class="text-center">
-            <div class="text-2xl sm:text-3xl font-bold mb-1 text-emerald-600">4.8/5</div>
-            <div class="text-sm font-medium" style="color: var(--text-muted);">Average Rating</div>
+          <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-center shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
+            <div class="text-3xl font-black mb-2 text-emerald-300">4.9/5</div>
+            <div class="text-sm font-medium text-white/70">Average Rating</div>
           </div>
         </div>
 
-        <!-- Professional CTA Buttons -->
-        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up animation-delay-800">
+        <!-- Enhanced CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start animate-fade-in-up animation-delay-800">
           <a 
             href={primaryCta.href}
             target="_blank"
-            class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl font-semibold text-white text-lg shadow-xl hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300"
+            class="group relative px-10 py-5 bg-white text-gray-900 rounded-2xl font-black text-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-500 overflow-hidden"
           >
-            <span class="flex items-center justify-center gap-2">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+            <span class="relative z-10 group-hover:text-white transition-colors duration-300 flex items-center justify-center gap-3">
+              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5-5 5M6 12h12"></path>
               </svg>
               {primaryCta.text}
@@ -116,16 +121,31 @@ const {
           
           <a 
             href={secondaryCta.href}
-            class="px-8 py-4 backdrop-blur-sm border rounded-xl font-semibold text-lg hover:scale-105 transition-all duration-300"
-            style="background: var(--button-secondary-bg); border-color: var(--button-secondary-border); color: var(--button-secondary-text);"
+            class="group relative px-10 py-5 border-2 border-white/30 text-white rounded-2xl font-bold text-lg backdrop-blur-sm hover:bg-white/10 transition-all duration-500 hover:scale-105 hover:border-white/50"
           >
-            <span class="flex items-center justify-center gap-2">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span class="flex items-center justify-center gap-3">
+              <svg class="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
               </svg>
               {secondaryCta.text}
             </span>
           </a>
+        </div>
+
+        <!-- Trust Indicators -->
+        <div class="flex flex-col md:flex-row justify-center lg:justify-start items-center space-y-4 md:space-y-0 md:space-x-8 text-white/60 animate-fade-in-up animation-delay-1000">
+          <div class="flex items-center space-x-2">
+            <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm font-medium">Free Resources Available</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm font-medium">Instant AI-Powered Learning</span>
+          </div>
         </div>
       </div>
 
@@ -198,7 +218,7 @@ const {
 
           <!-- Floating Feature Cards -->
           <div class="absolute -top-4 -left-8 transform hover:scale-110 transition-transform duration-300">
-            <div class="backdrop-blur-sm rounded-2xl p-4 border shadow-xl" style="background: var(--card-bg); border-color: var(--card-border);">
+            <div class="backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-xl bg-white/90">
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center">
                   <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -206,15 +226,15 @@ const {
                   </svg>
                 </div>
                 <div>
-                  <div class="font-bold text-sm sm:text-base" style="color: var(--text-primary);">Smart Quizzes</div>
-                  <div class="text-xs sm:text-sm font-medium" style="color: var(--text-secondary);">AI-powered assessments</div>
+                  <div class="font-bold text-sm sm:text-base text-gray-900">Smart Quizzes</div>
+                  <div class="text-xs sm:text-sm font-medium text-gray-600">AI-powered assessments</div>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="absolute -top-8 -right-4 transform hover:scale-110 transition-transform duration-300">
-            <div class="backdrop-blur-sm rounded-2xl p-4 border shadow-xl" style="background: var(--card-bg); border-color: var(--card-border);">
+            <div class="backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-xl bg-white/90">
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl flex items-center justify-center">
                   <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -222,15 +242,15 @@ const {
                   </svg>
                 </div>
                 <div>
-                  <div class="font-bold text-sm sm:text-base" style="color: var(--text-primary);">Mock Interviews</div>
-                  <div class="text-xs sm:text-sm font-medium" style="color: var(--text-secondary);">Practice with AI</div>
+                  <div class="font-bold text-sm sm:text-base text-gray-900">Mock Interviews</div>
+                  <div class="text-xs sm:text-sm font-medium text-gray-600">Practice with AI</div>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="absolute -bottom-4 -left-4 transform hover:scale-110 transition-transform duration-300">
-            <div class="backdrop-blur-sm rounded-2xl p-4 border shadow-xl" style="background: var(--card-bg); border-color: var(--card-border);">
+            <div class="backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-xl bg-white/90">
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-xl flex items-center justify-center">
                   <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -238,15 +258,15 @@ const {
                   </svg>
                 </div>
                 <div>
-                  <div class="font-bold text-sm sm:text-base" style="color: var(--text-primary);">Study Guides</div>
-                  <div class="text-xs sm:text-sm font-medium" style="color: var(--text-secondary);">Expert resources</div>
+                  <div class="font-bold text-sm sm:text-base text-gray-900">Study Guides</div>
+                  <div class="text-xs sm:text-sm font-medium text-gray-600">Expert resources</div>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="absolute -bottom-8 -right-8 transform hover:scale-110 transition-transform duration-300">
-            <div class="backdrop-blur-sm rounded-2xl p-4 border shadow-xl" style="background: var(--card-bg); border-color: var(--card-border);">
+            <div class="backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-xl bg-white/90">
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center">
                   <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -254,8 +274,8 @@ const {
                   </svg>
                 </div>
                 <div>
-                  <div class="font-bold text-sm sm:text-base" style="color: var(--text-primary);">Smart Learning</div>
-                  <div class="text-xs sm:text-sm font-medium" style="color: var(--text-secondary);">Adaptive paths</div>
+                  <div class="font-bold text-sm sm:text-base text-gray-900">Smart Learning</div>
+                  <div class="text-xs sm:text-sm font-medium text-gray-600">Adaptive paths</div>
                 </div>
               </div>
             </div>
@@ -267,8 +287,8 @@ const {
 
   <!-- Scroll Indicator -->
   <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-    <div class="w-6 h-10 border-2 rounded-full flex justify-center" style="border-color: var(--text-muted);">
-      <div class="w-1 h-3 rounded-full mt-2 animate-pulse" style="background: var(--text-muted);"></div>
+    <div class="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
+      <div class="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-pulse"></div>
     </div>
   </div>
 </section>
@@ -450,9 +470,32 @@ const {
     background: linear-gradient(45deg, #10b981, #047857);
   }
 
-  /* Smooth floating animation */
+  .tile-9 {
+    top: 20%;
+    left: 35%;
+    animation-delay: 8s;
+    background: linear-gradient(45deg, #f472b6, #ec4899);
+  }
+
+  .tile-10 {
+    top: 70%;
+    right: 35%;
+    animation-delay: 9s;
+    background: linear-gradient(45deg, #06b6d4, #0e7490);
+  }
+
+  /* Enhanced floating animations */
   .animate-float-slow {
     animation: float-slow 12s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float-slow 15s ease-in-out infinite;
+    animation-delay: -5s;
+  }
+
+  .animate-float-reverse {
+    animation: float-reverse 10s ease-in-out infinite;
   }
 
   @keyframes float-tile {

@@ -55,8 +55,13 @@ visibility: "${postData.visibility || 'public'}"
 
 `;
 
-    // Convert HTML content to markdown (basic conversion)
-    const markdownContent = postData.content
+    // Convert HTML content to markdown with better handling for embedded content
+    let markdownContent = postData.content
+      // Preserve embedded content divs
+      .replace(/<div class="embedded-content"[^>]*>([\s\S]*?)<\/div>/g, (match, content) => {
+        return '\n\n<!-- EMBEDDED_CONTENT -->\n' + content + '\n<!-- /EMBEDDED_CONTENT -->\n\n';
+      })
+      // Convert basic HTML to markdown
       .replace(/<h1>(.*?)<\/h1>/g, '# $1\n\n')
       .replace(/<h2>(.*?)<\/h2>/g, '## $1\n\n')
       .replace(/<h3>(.*?)<\/h3>/g, '### $1\n\n')
@@ -65,9 +70,28 @@ visibility: "${postData.visibility || 'public'}"
       .replace(/<h6>(.*?)<\/h6>/g, '###### $1\n\n')
       .replace(/<strong>(.*?)<\/strong>/g, '**$1**')
       .replace(/<em>(.*?)<\/em>/g, '*$1*')
-      .replace(/<p>(.*?)<\/p>/g, '$1\n\n')
+      .replace(/<ul[^>]*>(.*?)<\/ul>/gs, (match, content) => {
+        return content.replace(/<li[^>]*>(.*?)<\/li>/gs, '- $1\n');
+      })
+      .replace(/<ol[^>]*>(.*?)<\/ol>/gs, (match, content) => {
+        let counter = 1;
+        return content.replace(/<li[^>]*>(.*?)<\/li>/gs, () => `${counter++}. $1\n`);
+      })
+      .replace(/<blockquote[^>]*>(.*?)<\/blockquote>/gs, (match, content) => {
+        return content.replace(/^/gm, '> ');
+      })
+      .replace(/<a[^>]*href=["']([^"']+)["'][^>]*>(.*?)<\/a>/g, '[$2]($1)')
+      .replace(/<img[^>]*src=["']([^"']+)["'][^>]*alt=["']([^"']*)["'][^>]*>/g, '![$2]($1)')
+      .replace(/<img[^>]*src=["']([^"']+)["'][^>]*>/g, '![]($1)')
+      .replace(/<code[^>]*>(.*?)<\/code>/g, '`$1`')
+      .replace(/<pre[^>]*><code[^>]*>(.*?)<\/code><\/pre>/gs, '```\n$1\n```')
+      .replace(/<p[^>]*>(.*?)<\/p>/gs, '$1\n\n')
       .replace(/<br\s*\/?>/g, '\n')
-      .replace(/<[^>]*>/g, ''); // Remove remaining HTML tags
+      // Clean up remaining HTML tags except embedded content
+      .replace(/<(?!\/?(EMBEDDED_CONTENT))[^>]*>/g, '');
+
+    // Clean up extra whitespace
+    markdownContent = markdownContent.replace(/\n{3,}/g, '\n\n').trim();
 
     const fullContent = frontmatter + markdownContent;
 

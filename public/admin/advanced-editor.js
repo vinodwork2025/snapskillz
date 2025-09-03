@@ -328,6 +328,9 @@ class AdvancedBlogEditor {
         // Image upload events
         this.bindImageUploads();
         
+        // HTML embed functionality
+        this.bindHTMLEmbedEvents();
+        
         // Form field synchronization
         this.bindFormFields();
         console.log('Events bound successfully!');
@@ -1263,6 +1266,13 @@ class AdvancedBlogEditor {
 
         console.log('Importing file:', file.name);
         const fileType = file.name.split('.').pop().toLowerCase();
+        
+        // Handle DOCX files differently
+        if (fileType === 'docx') {
+            this.importDocx(file);
+            return;
+        }
+        
         const reader = new FileReader();
 
         reader.onerror = () => {
@@ -1279,6 +1289,9 @@ class AdvancedBlogEditor {
                         break;
                     case 'txt':
                         this.importPlainText(content);
+                        break;
+                    case 'html':
+                        this.importHTML(content);
                         break;
                     default:
                         this.showNotification(`Unsupported file format: .${fileType}`, 'error');
@@ -1337,29 +1350,33 @@ class AdvancedBlogEditor {
                     }
                 });
                 
-                // Simple markdown to HTML conversion
-                let htmlContent = bodyContent
-                    .replace(/^# (.*$)/gm, '<h1>$1</h1>')
-                    .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-                    .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                    .replace(/\n\n/g, '</p><p>')
-                    .replace(/^(.)/gm, '<p>$1')
-                    .replace(/(.)\n$/gm, '$1</p>');
+                // Use marked.js for better markdown conversion if available
+                let htmlContent;
+                if (typeof marked !== 'undefined') {
+                    try {
+                        htmlContent = marked.parse(bodyContent);
+                    } catch (error) {
+                        console.warn('Marked.js conversion failed, using fallback:', error);
+                        htmlContent = this.convertMarkdownToHTML(bodyContent);
+                    }
+                } else {
+                    htmlContent = this.convertMarkdownToHTML(bodyContent);
+                }
                 
                 this.quill.root.innerHTML = htmlContent;
             } else {
-                // Simple markdown conversion
-                let htmlContent = content
-                    .replace(/^# (.*$)/gm, '<h1>$1</h1>')
-                    .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-                    .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                    .replace(/\n\n/g, '</p><p>')
-                    .replace(/^(.)/gm, '<p>$1')
-                    .replace(/(.)\n$/gm, '$1</p>');
+                // Use marked.js for better markdown conversion if available
+                let htmlContent;
+                if (typeof marked !== 'undefined') {
+                    try {
+                        htmlContent = marked.parse(content);
+                    } catch (error) {
+                        console.warn('Marked.js conversion failed, using fallback:', error);
+                        htmlContent = this.convertMarkdownToHTML(content);
+                    }
+                } else {
+                    htmlContent = this.convertMarkdownToHTML(content);
+                }
                 
                 this.quill.root.innerHTML = htmlContent;
             }
@@ -1377,6 +1394,8 @@ class AdvancedBlogEditor {
     importPlainText(content) {
         this.quill.setText(content);
         this.updateContentAnalytics();
+        this.updateTitleAnalytics();
+        this.updateSEOAnalysis();
         this.showNotification('Text file imported successfully', 'success');
     }
 
@@ -1466,6 +1485,433 @@ class AdvancedBlogEditor {
             clearTimeout(timeout);
             timeout = setTimeout(later, wait);
         };
+    }
+
+    convertMarkdownToHTML(markdown) {
+        return markdown
+            .replace(/^# (.*$)/gm, '<h1>$1</h1>')
+            .replace(/^## (.*$)/gm, '<h2>$1</h2>')
+            .replace(/^### (.*$)/gm, '<h3>$1</h3>')
+            .replace(/^#### (.*$)/gm, '<h4>$1</h4>')
+            .replace(/^##### (.*$)/gm, '<h5>$1</h5>')
+            .replace(/^###### (.*$)/gm, '<h6>$1</h6>')
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            .replace(/`(.*?)`/g, '<code>$1</code>')
+            .replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2">$1</a>')
+            .replace(/!\[([^\]]*)\]\(([^\)]+)\)/g, '<img src="$2" alt="$1">')
+            .replace(/^\\* (.+)/gm, '<li>$1</li>')
+            .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+            .replace(/^\d+\. (.+)/gm, '<li>$1</li>')
+            .replace(/^> (.+)/gm, '<blockquote>$1</blockquote>')
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/^(?!<[^>]+>)(.+)$/gm, '<p>$1</p>')
+            .replace(/<p><\/p>/g, '')
+            .replace(/<p>(<[^>]+>.*<\/[^>]+>)<\/p>/g, '$1');
+    }
+
+    importHTML(content) {
+        try {
+            console.log('Importing HTML content...');
+            
+            // Extract title from HTML if available
+            const titleMatch = content.match(/<title[^>]*>([^<]+)<\/title>/i);
+            if (titleMatch) {
+                const titleElement = document.getElementById('postTitle');
+                if (titleElement && !titleElement.value) {
+                    titleElement.value = titleMatch[1].trim();
+                }
+            }
+            
+            // Extract meta description
+            const metaDescMatch = content.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["'][^>]*>/i);
+            if (metaDescMatch) {
+                const descElement = document.getElementById('metaDescription');
+                if (descElement && !descElement.value) {
+                    descElement.value = metaDescMatch[1].trim();
+                }
+            }
+            
+            // Extract body content or use full content if no body tag
+            let bodyContent = content;
+            const bodyMatch = content.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+            if (bodyMatch) {
+                bodyContent = bodyMatch[1];
+            }
+            
+            // Clean up and sanitize HTML
+            bodyContent = bodyContent
+                .replace(/<script[\s\S]*?<\/script>/gi, '') // Remove scripts
+                .replace(/<style[\s\S]*?<\/style>/gi, '') // Remove inline styles
+                .replace(/<!--[\s\S]*?-->/g, '') // Remove comments
+                .replace(/<meta[^>]*>/gi, '') // Remove meta tags
+                .replace(/<head[\s\S]*?<\/head>/gi, '') // Remove head
+                .replace(/<title[\s\S]*?<\/title>/gi, '') // Remove title
+                .trim();
+            
+            // Set content in Quill editor
+            this.quill.root.innerHTML = bodyContent;
+            
+            this.updateContentAnalytics();
+            this.updateTitleAnalytics();
+            this.updateSEOAnalysis();
+            this.generateSchema();
+            this.showNotification('HTML file imported successfully', 'success');
+        } catch (error) {
+            console.error('Error importing HTML:', error);
+            this.showNotification('Error importing HTML file: ' + error.message, 'error');
+        }
+    }
+
+    async importDocx(file) {
+        try {
+            console.log('Importing DOCX file...');
+            this.showNotification('Processing DOCX file...', 'info');
+            
+            if (typeof mammoth === 'undefined') {
+                this.showNotification('DOCX import library not loaded', 'error');
+                return;
+            }
+            
+            const arrayBuffer = await file.arrayBuffer();
+            const result = await mammoth.convertToHtml({ arrayBuffer: arrayBuffer });
+            
+            if (result.value) {
+                // Set the HTML content in the editor
+                this.quill.root.innerHTML = result.value;
+                
+                // Show any conversion messages/warnings
+                if (result.messages && result.messages.length > 0) {
+                    console.log('DOCX conversion messages:', result.messages);
+                }
+                
+                this.updateContentAnalytics();
+                this.updateTitleAnalytics();
+                this.updateSEOAnalysis();
+                this.generateSchema();
+                this.showNotification('DOCX file imported successfully', 'success');
+            } else {
+                this.showNotification('Failed to extract content from DOCX file', 'error');
+            }
+        } catch (error) {
+            console.error('Error importing DOCX:', error);
+            this.showNotification('Error importing DOCX file: ' + error.message, 'error');
+        }
+    }
+
+    bindHTMLEmbedEvents() {
+        const embedBtn = document.getElementById('embedHTMLBtn');
+        const modal = document.getElementById('htmlEmbedModal');
+        const closeBtn = document.getElementById('closeEmbedModal');
+        const cancelBtn = document.getElementById('cancelEmbed');
+        const insertBtn = document.getElementById('insertEmbed');
+        const previewBtn = document.getElementById('previewEmbedBtn');
+        const validateBtn = document.getElementById('validateEmbedBtn');
+        const codeTextarea = document.getElementById('htmlEmbedCode');
+
+        // Open modal
+        if (embedBtn) {
+            embedBtn.addEventListener('click', () => {
+                modal?.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
+            });
+        }
+
+        // Close modal
+        const closeModal = () => {
+            modal?.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+            if (codeTextarea) codeTextarea.value = '';
+            this.hideEmbedPreview();
+        };
+
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+        if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+
+        // Template buttons
+        const templateBtns = document.querySelectorAll('.embed-template');
+        templateBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const template = btn.dataset.template;
+                this.loadEmbedTemplate(template);
+            });
+        });
+
+        // Preview functionality
+        if (previewBtn) {
+            previewBtn.addEventListener('click', () => {
+                this.previewEmbed();
+            });
+        }
+
+        // Validation
+        if (validateBtn) {
+            validateBtn.addEventListener('click', () => {
+                this.validateEmbed();
+            });
+        }
+
+        // Insert embed
+        if (insertBtn) {
+            insertBtn.addEventListener('click', () => {
+                this.insertHTMLEmbed();
+            });
+        }
+
+        // Close on outside click
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+        }
+    }
+
+    loadEmbedTemplate(template) {
+        const codeTextarea = document.getElementById('htmlEmbedCode');
+        if (!codeTextarea) return;
+
+        const templates = {
+            iframe: `<iframe 
+    src="https://example.com" 
+    width="100%" 
+    height="400" 
+    frameborder="0" 
+    allowfullscreen>
+</iframe>`,
+            codepen: `<p class="codepen" data-height="400" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="SLUG_HASH" data-user="USERNAME">
+    <span>See the Pen <a href="https://codepen.io/USERNAME/pen/SLUG_HASH">Pen Name</a> by USERNAME</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>`,
+            quiz: `<div class="interactive-quiz" style="border: 2px solid #e5e7eb; border-radius: 8px; padding: 20px; margin: 20px 0;">
+    <h3 style="color: #374151; margin-bottom: 15px;">Quick Quiz</h3>
+    <div class="question" data-answer="2">
+        <p><strong>What is 2 + 2?</strong></p>
+        <label><input type="radio" name="q1" value="1"> 3</label><br>
+        <label><input type="radio" name="q1" value="2"> 4</label><br>
+        <label><input type="radio" name="q1" value="3"> 5</label><br>
+        <button onclick="checkAnswer(this)" style="margin-top: 10px; padding: 8px 16px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer;">Check Answer</button>
+        <div class="result" style="margin-top: 10px; display: none;"></div>
+    </div>
+</div>
+<script>
+function checkAnswer(btn) {
+    const question = btn.closest('.question');
+    const selected = question.querySelector('input[name="q1"]:checked');
+    const result = question.querySelector('.result');
+    const correct = question.dataset.answer;
+    
+    if (!selected) {
+        alert('Please select an answer');
+        return;
+    }
+    
+    result.style.display = 'block';
+    if (selected.value === correct) {
+        result.innerHTML = '✅ Correct!';
+        result.style.color = '#10b981';
+    } else {
+        result.innerHTML = '❌ Incorrect. The answer is 4.';
+        result.style.color = '#ef4444';
+    }
+}
+</script>`,
+            chart: `<div class="chart-container" style="width: 100%; height: 400px; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin: 20px 0;">
+    <canvas id="myChart"></canvas>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('myChart').getContext('2d');
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+        datasets: [{
+            label: 'Sales',
+            data: [12, 19, 3, 5, 2],
+            backgroundColor: 'rgba(59, 130, 246, 0.8)'
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+</script>`,
+            timeline: `<div class="timeline" style="max-width: 800px; margin: 20px 0;">
+    <div class="timeline-item" style="display: flex; margin-bottom: 20px; padding: 15px; border-left: 3px solid #3b82f6; background: #f8fafc;">
+        <div class="timeline-date" style="min-width: 100px; font-weight: bold; color: #3b82f6;">2024</div>
+        <div class="timeline-content">
+            <h4 style="margin: 0 0 8px 0; color: #374151;">Project Launch</h4>
+            <p style="margin: 0; color: #6b7280;">Started development of the new platform</p>
+        </div>
+    </div>
+    <div class="timeline-item" style="display: flex; margin-bottom: 20px; padding: 15px; border-left: 3px solid #10b981; background: #f0fdf4;">
+        <div class="timeline-date" style="min-width: 100px; font-weight: bold; color: #10b981;">2024</div>
+        <div class="timeline-content">
+            <h4 style="margin: 0 0 8px 0; color: #374151;">Beta Release</h4>
+            <p style="margin: 0; color: #6b7280;">First beta version released to select users</p>
+        </div>
+    </div>
+</div>`,
+            custom: `<!-- Your custom HTML goes here -->
+<div style="padding: 20px; border: 2px dashed #d1d5db; border-radius: 8px; text-align: center; margin: 20px 0;">
+    <h3>Custom Interactive Element</h3>
+    <p>Add your own HTML, CSS, and JavaScript here</p>
+    <button onclick="alert('Hello from your custom embed!')" style="padding: 10px 20px; background: #8b5cf6; color: white; border: none; border-radius: 4px; cursor: pointer;">Click Me</button>
+</div>
+
+<style>
+/* Your custom CSS */
+</style>
+
+<script>
+// Your custom JavaScript
+console.log('Custom embed loaded');
+</script>`
+        };
+
+        codeTextarea.value = templates[template] || '';
+        this.validateEmbed();
+    }
+
+    previewEmbed() {
+        const codeTextarea = document.getElementById('htmlEmbedCode');
+        const previewContainer = document.getElementById('embedPreview');
+        const previewContent = document.getElementById('embedPreviewContent');
+        
+        if (!codeTextarea || !previewContainer || !previewContent) return;
+        
+        const htmlCode = codeTextarea.value.trim();
+        if (!htmlCode) {
+            this.showNotification('Please enter HTML code to preview', 'error');
+            return;
+        }
+        
+        try {
+            previewContent.innerHTML = htmlCode;
+            previewContainer.classList.remove('hidden');
+            
+            // Execute any scripts in the preview
+            const scripts = previewContent.querySelectorAll('script');
+            scripts.forEach(script => {
+                const newScript = document.createElement('script');
+                if (script.src) {
+                    newScript.src = script.src;
+                } else {
+                    newScript.textContent = script.textContent;
+                }
+                document.head.appendChild(newScript);
+                setTimeout(() => document.head.removeChild(newScript), 100);
+            });
+        } catch (error) {
+            console.error('Preview error:', error);
+            this.showNotification('Error rendering preview: ' + error.message, 'error');
+        }
+    }
+
+    hideEmbedPreview() {
+        const previewContainer = document.getElementById('embedPreview');
+        const previewContent = document.getElementById('embedPreviewContent');
+        
+        if (previewContainer) previewContainer.classList.add('hidden');
+        if (previewContent) previewContent.innerHTML = '';
+    }
+
+    validateEmbed() {
+        const codeTextarea = document.getElementById('htmlEmbedCode');
+        const resultDiv = document.getElementById('embedValidationResult');
+        
+        if (!codeTextarea || !resultDiv) return;
+        
+        const htmlCode = codeTextarea.value.trim();
+        if (!htmlCode) {
+            resultDiv.classList.add('hidden');
+            return;
+        }
+        
+        const issues = [];
+        const warnings = [];
+        
+        // Basic validation
+        if (htmlCode.includes('<script') && !htmlCode.includes('</script>')) {
+            issues.push('Unclosed script tag detected');
+        }
+        
+        if (htmlCode.includes('<style') && !htmlCode.includes('</style>')) {
+            issues.push('Unclosed style tag detected');
+        }
+        
+        // Security checks
+        if (htmlCode.includes('javascript:')) {
+            issues.push('JavaScript URLs detected - potential security risk');
+        }
+        
+        if (htmlCode.includes('onclick') || htmlCode.includes('onload') || htmlCode.includes('onerror')) {
+            warnings.push('Inline event handlers detected - consider using external scripts');
+        }
+        
+        if (htmlCode.includes('eval(')) {
+            issues.push('eval() usage detected - security risk');
+        }
+        
+        // Display results
+        resultDiv.classList.remove('hidden');
+        
+        let resultHTML = '';
+        if (issues.length === 0 && warnings.length === 0) {
+            resultHTML = '<span class="text-green-600">✅ Code looks good!</span>';
+        } else {
+            if (issues.length > 0) {
+                resultHTML += '<div class="text-red-600">❌ Issues: ' + issues.join(', ') + '</div>';
+            }
+            if (warnings.length > 0) {
+                resultHTML += '<div class="text-yellow-600">⚠️ Warnings: ' + warnings.join(', ') + '</div>';
+            }
+        }
+        
+        resultDiv.innerHTML = resultHTML;
+    }
+
+    insertHTMLEmbed() {
+        const codeTextarea = document.getElementById('htmlEmbedCode');
+        if (!codeTextarea) return;
+        
+        const htmlCode = codeTextarea.value.trim();
+        if (!htmlCode) {
+            this.showNotification('Please enter HTML code to insert', 'error');
+            return;
+        }
+        
+        try {
+            // Get current selection in Quill
+            const range = this.quill.getSelection(true);
+            
+            // Wrap the HTML in a container for better handling
+            const wrappedHTML = `<div class="embedded-content" style="margin: 20px 0; padding: 10px; border: 1px dashed #e5e7eb; border-radius: 8px;">${htmlCode}</div>`;
+            
+            // Insert the HTML at current cursor position
+            this.quill.clipboard.dangerouslyPasteHTML(range.index, wrappedHTML);
+            
+            // Move cursor after the inserted content
+            this.quill.setSelection(range.index + wrappedHTML.length);
+            
+            // Close modal
+            const modal = document.getElementById('htmlEmbedModal');
+            modal?.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+            
+            // Clear the textarea
+            codeTextarea.value = '';
+            this.hideEmbedPreview();
+            
+            this.showNotification('HTML embed inserted successfully!', 'success');
+            
+            // Update analytics
+            this.updateContentAnalytics();
+        } catch (error) {
+            console.error('Error inserting embed:', error);
+            this.showNotification('Error inserting embed: ' + error.message, 'error');
+        }
     }
 }
 

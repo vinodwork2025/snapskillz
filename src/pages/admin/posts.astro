@@ -99,6 +99,40 @@ export const prerender = false;
                 </div>
             </div>
 
+            <!-- Filters -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-6">
+                <div class="flex flex-col lg:flex-row gap-4 items-center">
+                    <div class="flex-1">
+                        <input
+                            type="text"
+                            placeholder="Search posts..."
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            id="searchInput"
+                        >
+                    </div>
+                    <div class="flex gap-4">
+                        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="published">Published</option>
+                            <option value="draft">Drafts</option>
+                        </select>
+                        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" id="categoryFilter">
+                            <option value="">All Categories</option>
+                            <option value="technology">Technology</option>
+                            <option value="programming">Programming</option>
+                            <option value="design">Design</option>
+                            <option value="business">Business</option>
+                        </select>
+                        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" id="sortFilter">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="title">Title A-Z</option>
+                            <option value="title-desc">Title Z-A</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <!-- Posts Table -->
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-200">
@@ -186,6 +220,36 @@ export const prerender = false;
                         this.loadPosts();
                     });
                 }
+
+                // Filter and search events
+                const searchInput = document.getElementById('searchInput');
+                const statusFilter = document.getElementById('statusFilter');
+                const categoryFilter = document.getElementById('categoryFilter');
+                const sortFilter = document.getElementById('sortFilter');
+
+                if (searchInput) {
+                    searchInput.addEventListener('input', () => {
+                        this.applyFilters();
+                    });
+                }
+
+                if (statusFilter) {
+                    statusFilter.addEventListener('change', () => {
+                        this.applyFilters();
+                    });
+                }
+
+                if (categoryFilter) {
+                    categoryFilter.addEventListener('change', () => {
+                        this.applyFilters();
+                    });
+                }
+
+                if (sortFilter) {
+                    sortFilter.addEventListener('change', () => {
+                        this.applyFilters();
+                    });
+                }
             }
 
             async loadPosts() {
@@ -267,18 +331,132 @@ export const prerender = false;
                 }
             }
 
+            applyFilters() {
+                const searchInput = document.getElementById('searchInput');
+                const statusFilter = document.getElementById('statusFilter');
+                const categoryFilter = document.getElementById('categoryFilter');
+                const sortFilter = document.getElementById('sortFilter');
+
+                const searchTerm = searchInput?.value.toLowerCase() || '';
+                const statusFilter_ = statusFilter?.value || '';
+                const categoryFilter_ = categoryFilter?.value || '';
+                const sortBy = sortFilter?.value || 'newest';
+
+                // Filter posts
+                let filteredPosts = this.posts.filter(post => {
+                    const matchesSearch = !searchTerm || 
+                        post.title.toLowerCase().includes(searchTerm) ||
+                        post.description.toLowerCase().includes(searchTerm) ||
+                        post.author.toLowerCase().includes(searchTerm);
+                    
+                    const matchesStatus = !statusFilter_ || 
+                        (statusFilter_ === 'published' && !post.draft) ||
+                        (statusFilter_ === 'draft' && post.draft);
+                    
+                    const matchesCategory = !categoryFilter_ || 
+                        post.category === categoryFilter_;
+
+                    return matchesSearch && matchesStatus && matchesCategory;
+                });
+
+                // Sort posts
+                filteredPosts.sort((a, b) => {
+                    switch (sortBy) {
+                        case 'oldest':
+                            return new Date(a.lastModified).getTime() - new Date(b.lastModified).getTime();
+                        case 'title':
+                            return a.title.localeCompare(b.title);
+                        case 'title-desc':
+                            return b.title.localeCompare(a.title);
+                        case 'newest':
+                        default:
+                            return new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime();
+                    }
+                });
+
+                // Render filtered posts
+                this.renderFilteredPosts(filteredPosts);
+            }
+
+            renderFilteredPosts(posts) {
+                const tbody = document.getElementById('postsTableBody');
+                const emptyState = document.getElementById('emptyState');
+
+                if (posts.length === 0) {
+                    if (tbody) tbody.innerHTML = '';
+                    if (emptyState) {
+                        emptyState.classList.remove('hidden');
+                        emptyState.querySelector('h3').textContent = 'No posts match your filters';
+                        emptyState.querySelector('p').textContent = 'Try adjusting your search terms or filters.';
+                    }
+                    return;
+                }
+
+                if (emptyState) emptyState.classList.add('hidden');
+
+                if (tbody) {
+                    tbody.innerHTML = posts.map(post => `
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    ${post.image ? `<img class="w-10 h-10 rounded-lg object-cover mr-3" src="${post.image}" alt="">` : '<div class="w-10 h-10 rounded-lg bg-gray-200 mr-3 flex items-center justify-center"><svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div>'}
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">${post.title}</div>
+                                        <div class="text-sm text-gray-500">${post.preview}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${post.author}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${post.draft ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}">
+                                    ${post.draft ? 'Draft' : 'Published'}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${post.category}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${new Date(post.lastModified).toLocaleDateString()}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <a href="/blog/${post.slug}" target="_blank" class="text-blue-600 hover:text-blue-900 mr-3">View</a>
+                                <button onclick="postsManager.editPost('${post.slug}')" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>
+                                <button onclick="postsManager.deletePost('${post.slug}')" class="text-red-600 hover:text-red-900">Delete</button>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+            }
+
             editPost(slug) {
                 // Redirect to editor with the post slug
                 window.location.href = `/admin/editor?edit=${slug}`;
             }
 
             async deletePost(slug) {
-                if (!confirm(`Are you sure you want to delete the post "${slug}"? This action cannot be undone.`)) {
+                const postTitle = this.posts.find(post => post.slug === slug)?.title || slug;
+                if (!confirm(`Are you sure you want to delete the post "${postTitle}"? This action cannot be undone.`)) {
                     return;
                 }
                 
-                this.showNotification('Delete functionality coming soon...', 'info');
-                // TODO: Implement delete functionality
+                try {
+                    this.showNotification('Deleting post...', 'info');
+                    
+                    const response = await fetch(`/api/posts/delete?slug=${slug}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.showNotification('Post deleted successfully!', 'success');
+                        // Remove from local posts array
+                        this.posts = this.posts.filter(post => post.slug !== slug);
+                        this.updateStats();
+                        this.renderPosts();
+                    } else {
+                        this.showNotification('Failed to delete post: ' + result.error, 'error');
+                    }
+                } catch (error) {
+                    console.error('Error deleting post:', error);
+                    this.showNotification('Error deleting post: ' + error.message, 'error');
+                }
             }
 
             showNotification(message, type) {

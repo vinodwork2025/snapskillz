@@ -119,7 +119,7 @@ export const prerender = false;
                                     <label for="importFile" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 cursor-pointer transition-colors">
                                         📁 Import File
                                     </label>
-                                    <input type="file" id="importFile" accept=".md,.txt,.docx" class="hidden">
+                                    <input type="file" id="importFile" accept=".md,.txt,.docx,.html" class="hidden">
                                 </div>
                                 <div class="flex gap-2">
                                     <button id="exportMarkdown" class="px-4 py-2 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors">
@@ -176,6 +176,9 @@ export const prerender = false;
                             <div class="p-4 border-b border-gray-200 flex items-center justify-between">
                                 <h3 class="text-lg font-semibold text-gray-900">Content Editor</h3>
                                 <div class="flex items-center gap-4 text-sm text-gray-500">
+                                    <button id="embedHTMLBtn" class="px-3 py-1 bg-purple-600 text-white rounded-md font-medium hover:bg-purple-700 transition-colors">
+                                        🔗 Embed HTML
+                                    </button>
                                     <span>Words: <span id="wordCount" class="font-medium">0</span></span>
                                     <span>Reading: <span id="readTime" class="font-medium">0</span> min</span>
                                     <span>Readability: <span id="readabilityScore" class="font-medium">Good</span></span>
@@ -530,6 +533,94 @@ export const prerender = false;
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HTML Embed Modal -->
+    <div id="htmlEmbedModal" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-xl font-bold text-gray-900">🔗 Embed HTML Code</h3>
+                <button id="closeEmbedModal" class="text-gray-500 hover:text-gray-700 p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="p-6 max-h-[70vh] overflow-y-auto">
+                <div class="space-y-6">
+                    <!-- Quick Templates -->
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900 mb-3">Quick Templates</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <button class="embed-template p-4 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 text-left transition-colors" data-template="iframe">
+                                <div class="font-semibold text-blue-600 mb-1">📺 Iframe Embed</div>
+                                <div class="text-sm text-gray-600">Embed external content like videos, maps, or interactive widgets</div>
+                            </button>
+                            <button class="embed-template p-4 border border-gray-200 rounded-lg hover:bg-green-50 hover:border-green-300 text-left transition-colors" data-template="codepen">
+                                <div class="font-semibold text-green-600 mb-1">🖥️ CodePen</div>
+                                <div class="text-sm text-gray-600">Interactive code examples and demos</div>
+                            </button>
+                            <button class="embed-template p-4 border border-gray-200 rounded-lg hover:bg-purple-50 hover:border-purple-300 text-left transition-colors" data-template="quiz">
+                                <div class="font-semibold text-purple-600 mb-1">📝 Interactive Quiz</div>
+                                <div class="text-sm text-gray-600">Create engaging learning quizzes</div>
+                            </button>
+                            <button class="embed-template p-4 border border-gray-200 rounded-lg hover:bg-orange-50 hover:border-orange-300 text-left transition-colors" data-template="chart">
+                                <div class="font-semibold text-orange-600 mb-1">📊 Chart/Graph</div>
+                                <div class="text-sm text-gray-600">Data visualizations and charts</div>
+                            </button>
+                            <button class="embed-template p-4 border border-gray-200 rounded-lg hover:bg-teal-50 hover:border-teal-300 text-left transition-colors" data-template="timeline">
+                                <div class="font-semibold text-teal-600 mb-1">⏱️ Timeline</div>
+                                <div class="text-sm text-gray-600">Interactive timeline component</div>
+                            </button>
+                            <button class="embed-template p-4 border border-gray-200 rounded-lg hover:bg-pink-50 hover:border-pink-300 text-left transition-colors" data-template="custom">
+                                <div class="font-semibold text-pink-600 mb-1">🎨 Custom HTML</div>
+                                <div class="text-sm text-gray-600">Write your own HTML/CSS/JS</div>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- HTML Code Editor -->
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="text-lg font-semibold text-gray-900">HTML Code</h4>
+                            <div class="flex gap-2">
+                                <button id="previewEmbedBtn" class="px-3 py-1 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700">
+                                    👁️ Preview
+                                </button>
+                                <button id="validateEmbedBtn" class="px-3 py-1 bg-green-600 text-white rounded-md text-sm font-medium hover:bg-green-700">
+                                    ✓ Validate
+                                </button>
+                            </div>
+                        </div>
+                        <textarea
+                            id="htmlEmbedCode"
+                            rows="12"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg font-mono text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Paste or write your HTML code here..."
+                        ></textarea>
+                        <div id="embedValidationResult" class="mt-2 text-sm hidden"></div>
+                    </div>
+                    
+                    <!-- Preview Area -->
+                    <div id="embedPreview" class="hidden">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-3">Preview</h4>
+                        <div class="border border-gray-300 rounded-lg p-4 bg-gray-50 min-h-[200px]" id="embedPreviewContent">
+                            <!-- Preview will be rendered here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-6 border-t border-gray-200 flex justify-between">
+                <button id="cancelEmbed" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                    Cancel
+                </button>
+                <button id="insertEmbed" class="px-6 py-2 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+                    🔗 Insert Embed
+                </button>
             </div>
         </div>
     </div>

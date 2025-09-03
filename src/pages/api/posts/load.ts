@@ -68,8 +68,13 @@ export const GET: APIRoute = async ({ url }) => {
 
     const bodyContent = frontmatterMatch[2];
 
-    // Convert markdown to HTML for the editor
+    // Convert markdown to HTML for the editor with better handling for embedded content
     let htmlContent = bodyContent
+      // Handle embedded content first
+      .replace(/<!-- EMBEDDED_CONTENT -->\n([\s\S]*?)\n<!-- \/EMBEDDED_CONTENT -->/g, (match, content) => {
+        return `<div class="embedded-content" style="margin: 20px 0; padding: 10px; border: 1px dashed #e5e7eb; border-radius: 8px;">${content}</div>`;
+      })
+      // Convert basic markdown to HTML
       .replace(/^# (.*$)/gm, '<h1>$1</h1>')
       .replace(/^## (.*$)/gm, '<h2>$1</h2>')
       .replace(/^### (.*$)/gm, '<h3>$1</h3>')
@@ -78,9 +83,24 @@ export const GET: APIRoute = async ({ url }) => {
       .replace(/^###### (.*$)/gm, '<h6>$1</h6>')
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/`(.*?)`/g, '<code>$1</code>')
+      .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+      .replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2">$1</a>')
+      .replace(/!\[([^\]]*)\]\(([^\)]+)\)/g, '<img src="$2" alt="$1">')
+      .replace(/^- (.+)$/gm, '<li>$1</li>')
+      .replace(/^(\d+)\. (.+)$/gm, '<li>$2</li>')
+      .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+      // Handle paragraphs last to avoid breaking embedded content
       .replace(/\n\n/g, '</p><p>')
-      .replace(/^(.)/gm, '<p>$1')
-      .replace(/(.)\n$/gm, '$1</p>');
+      .replace(/^(?!<[^>]+>)(.+)$/gm, '<p>$1</p>')
+      // Clean up empty paragraphs and fix nested tags
+      .replace(/<p><\/p>/g, '')
+      .replace(/<p>(<[^>]+>.*<\/[^>]+>)<\/p>/g, '$1')
+      .replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>')
+      .replace(/<\/ul>\s*<ul>/g, '');
+
+    // Clean up extra whitespace
+    htmlContent = htmlContent.replace(/\n{2,}/g, '\n').trim();
 
     const postData = {
       title: frontmatter.title || '',
