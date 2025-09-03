@@ -5,16 +5,10 @@ compatibility_flags = ["nodejs_compat"]
 # Cloudflare Pages configuration
 pages_build_output_dir = "dist"
 
-[build]
-command = "npm run build"
+[env.production.vars]
+# Add any production environment variables here
+# EXAMPLE_VAR = "production_value"
 
-[env.production]
-name = "snapskillz"
-
-[env.development]
-name = "snapskillz-dev"
-
-# Environment variables (set these in Cloudflare dashboard)
-[vars]
-# Add any environment variables your app needs here
-# EXAMPLE_VAR = "example_value"
+[env.preview.vars]
+# Add any preview environment variables here
+# EXAMPLE_VAR = "preview_value"
